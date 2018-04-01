@@ -1,0 +1,68 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: "Microsoft YaHei", "Times New Roman", serif;
+    font-size: 14px;
+    padding: 20px;
+}
+
+/* container */
+.container,
+.left,
+.middle,
+.right {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #999;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #eee;
+    overflow: hidden;
+    min-width: 600px;
+}
+
+/* left */
+.left {
+    float: left;
+    width: 200px;
+}
+
+.left img,
+.right img {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #999;
+    box-sizing: border-box;
+}
+
+.left span {
+    float: right;
+    width: 60px;
+}
+
+/* right */
+.right {
+    float: right;
+    width: 120px;
+    font-size: 0;
+    padding: 19px;
+}
+
+.right img:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+/* middle */
+.middle {
+    margin: 0 140px 0 220px;
+}
+
+.middle p {
+    text-indent: 28px;
+    margin: 5px 0;
+}
