@@ -1,0 +1,195 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    min-width: 750px;
+    font-family: "Microsoft YaHei", "Times New Roman", serif;
+    background-color: #DEDEDE;
+}
+
+/* header */
+header,
+footer {
+    position: relative;
+    height: 60px;
+    background-color: #333;
+}
+
+header img {
+    width: 100px;
+    height: 60px;
+    margin-left: 30px;
+}
+
+header nav {
+    float: right;
+}
+
+nav li {
+    float: left;
+    margin-right: 30px;
+    line-height: 60px;
+}
+
+header a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+/* aside */
+aside {
+    float: right;
+    width: 350px;
+    padding: 20px;
+    margin: 30px;
+    background-color: #FFF;
+    box-shadow: 2px 2px 2px #848484;
+}
+
+aside h3 {
+    padding: 10px;
+    border-left: 3px solid #ccc;
+}
+
+form {
+    padding: 10px;
+}
+
+form div {
+    font-size: 13px;
+    margin: 10px 0;
+}
+
+.form-input-title {
+    float: left;
+    width: 30%;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.form-input-tip {
+    display: inline-block;
+    padding-left: 30%;
+    margin-left: 20px;
+    font-size: 13px;
+    color: #ccc;
+}
+
+form textarea {
+    width: 50%;
+    height: 100px;
+}
+
+.aside-button {
+    width: 100%;
+    height: 40px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #3355D0;
+}
+
+/* article */
+article {
+    padding: 20px;
+    margin: 30px;
+    margin-right: 450px;
+    background-color: #FFF;
+    box-shadow: 2px 2px 2px #848484;
+}
+
+article h2 {
+    padding: 5px 0;
+}
+
+article h3 {
+    padding: 10px 0;
+    color: #6A6A6C;
+}
+
+.article-author,
+.article-author-time {
+    font-size: 12px;
+    line-height: 25px;
+    color: #6A6A6C;
+}
+
+article p {
+    text-indent: 28px;
+}
+
+article a {
+    color: #00F;
+}
+
+article > img {
+    width: 50%;
+    padding: 15px 0;
+}
+
+article ul {
+    margin-left: 20px;
+    list-style-type: none;
+}
+
+#id-article-3 li {
+    display: inline-block;
+    width: 120px;
+    padding-top: 10px;
+    border: 1px solid #CCC;
+    margin: 15px;
+    text-align: center;
+
+}
+
+#id-article-3 li img {
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+}
+
+article ol {
+    margin: 10px 40px;
+}
+
+#id-article-4 p {
+    text-indent: 0;
+}
+
+table {
+    width: 100%;
+    font-size: 13px;
+    text-align: left;
+}
+
+table th {
+    color: #FFF;
+    background-color: #333;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 2px 5px;
+}
+
+tbody tr:last-child {
+    font-weight: bold;
+    background-color: #ccc;
+}
+
+/* footer */
+footer p {
+    line-height: 60px;
+    color: #FFF;
+    text-align: center;
+}
