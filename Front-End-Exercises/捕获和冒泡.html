@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>捕获和冒泡的测试</title>
+        <style>
+            .bubble,
+            .capture {
+                width: 50%;
+                padding: 20px;
+                margin: 20px auto;
+                background-color: #ccc;
+            }
+
+            .bubble-child,
+            .capture-child {
+                background-color: #ff0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="bubble">
+            <p class="bubble-child">Bubble Test</p>
+        </div>
+
+        <div class="capture">
+            <p class="capture-child">Capture Test</p>
+        </div>
+
+        <script>
+            var $ = function(selector) {
+                return document.querySelector(selector);
+            }
+
+            // 冒泡 （自内往外执行）
+            var bubble = function() {
+                // 父元素
+                $(".bubble").addEventListener('click', function() {
+                    alert("father element --- bubble parent ---");
+                });
+
+                // 子元素
+                $(".bubble-child").addEventListener('click', function() {
+                    alert("children element --- bubble child ---");
+                });
+            }
+
+            // 捕获 （自外往内执行）
+            var capture = function() {
+                // 父元素
+                $(".capture").addEventListener('click', function() {
+                    alert("father element --- capture parent ---");
+                }, true);
+
+                // 子元素
+                $(".capture-child").addEventListener('click', function() {
+                    alert("children element --- capture child ---");
+                }, true);
+            }
+
+            var init = function() {
+                // 冒泡
+                bubble();
+
+                // 捕获
+                capture();
+            }
+
+            init();
+        </script>
+    </body>
+</html>
