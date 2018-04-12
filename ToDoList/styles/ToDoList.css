@@ -1,5 +1,86 @@
-/* 完成的样式 */
+* {
+    padding: 0;
+    margin: 0;
+    outline: none;
+    /* box-sizing: border-box; */
+}
+
+body {
+    min-width: 600px;
+    font: 16px SimSun;
+}
+
+
+/* header */
+header {
+    padding: 12px 0;
+    background-color: #24292e;
+    text-align: center;
+}
+
+header label {
+    font-size: 24px;
+    color: rgba(255,255,255,0.75);
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+#id-todo-input {
+    min-width: 300px;
+    min-height: 30px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+
+#id-todo-add-butn {
+    width: 80px;
+    height: 30px;
+    border: 0;
+    border-radius: 3px;
+    background-color: rgba(255,255,255,0.75);
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+
+/* section */
+section {
+    padding: 20px 0;
+}
+
+#id-todo-list {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.todo-cell {
+    padding: 7px 3px;
+}
+
+.todo-done,
+.todo-delete,
+.todo-edit {
+    width: 70px;
+    height: 22px;
+    padding: 2px;
+    border: 1px solid rgba(27,31,35,0.2);
+    border-radius: 3px;
+    font-size: 14px;
+    color: #24292e;
+    background-color: #eff3f6;
+    cursor: pointer;
+}
+
 .done {
     color: gray;
     text-decoration: line-through;
+}
+
+
+/* footer */
+footer {
+    color: #586069;
+    text-align: center;
 }

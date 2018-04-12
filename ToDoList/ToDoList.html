@@ -7,29 +7,28 @@
     </head>
     <body>
         <header>
-            <div>
-                <!-- todo 输入框 -->
-                <form class="todo-form">
-                    <label>
-                        <input id='id-input-todo' type="text" placeholder="添加待办事项">
-                    </label>
+            <!-- ToDoList 输入框 -->
+            <form class="todo-form">
+                <label for="id-todo-input">ToDoList</label>
+                <input id='id-todo-input' type="text" placeholder="添加待办事项">
 
-                    <button id='id-button-add' type="button">Add</button>
-                </form>
-            </div>
+                <button id='id-todo-add-butn' type="button">Add</button>
+            </form>
         </header>
         <section>
-            <!-- todo 列表 -->
-            <div id="id-div-container">
+            <!-- ToDoList 列表 -->
+            <div id="id-todo-list">
                 <!-- <div class='todo-cell'>
                     <button class='todo-done'>完成</button>
                     <button class='todo-delete'>删除</button>
-                    <span contenteditable='true'>上课</span>
+                    <button class='todo-edit'>编辑</button>
+                    <span class='todo-label' contenteditable='false'>待办事项</span>
+                    <span>编辑时间</span>
                 </div> -->
             </div>
         </section>
         <footer>
-            <!-- <p>Whxcer's todolist practice</p> -->
+            <p>Whxcer's todolist practice</p>
         </footer>
 
         <script src='scripts/ToDoList.js'></script>

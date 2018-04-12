@@ -1,14 +1,13 @@
-// 自己定义一个 log 函数
-var log = function() {
-    console.log.apply(console, arguments);
+var $ = function(selector) {
+    return document.querySelector(selector);
 }
 
-// 给 add button 绑定添加 todo 事件
+// 给 add button 绑定添加事件
 var bindEventAdd = function() {
-    var addButton = document.querySelector('#id-button-add');
+    var addButton = $('#id-todo-add-butn');
     addButton.addEventListener('click', function(){
-        // 获得 input.value
-        var todoInput = document.querySelector('#id-input-todo');
+        // 获得输入的数据
+        var todoInput = $('#id-todo-input');
         var task = todoInput.value;
 
         // 生成 todo 对象
@@ -24,7 +23,7 @@ var bindEventAdd = function() {
 }
 
 var bindEventEnter = function() {
-    var todoContainer = document.querySelector('#id-div-container');
+    var todoContainer = $('#id-todo-list');
     todoContainer.addEventListener('keydown', function(event){
         var target = event.target;
         if(event.key === 'Enter') {
@@ -47,7 +46,7 @@ var bindEventEnter = function() {
 
 var bindEventButton = function() {
     // 通过 event.target 的 class 来检查点击的是什么
-    var todoContainer = document.querySelector('#id-div-container');
+    var todoContainer = $('#id-todo-list');
     todoContainer.addEventListener('click', function(event){
         var target = event.target;
         if(target.classList.contains('todo-done')) {
@@ -74,7 +73,7 @@ var bindEventButton = function() {
 }
 
 var bindEventBlur = function() {
-    var todoContainer = document.querySelector('#id-div-container');
+    var todoContainer = $('#id-todo-list');
     todoContainer.addEventListener('blur', function(event){
         var target = event.target;
         if (target.classList.contains('todo-label')) {
@@ -105,7 +104,7 @@ var bindEvents = function() {
 
 var insertTodo = function(todo) {
     // 添加到 container 中
-    var todoContainer = document.querySelector('#id-div-container');
+    var todoContainer = $('#id-todo-list');
     var t = templateTodo(todo);
     // 这个方法用来添加元素更加方便, 不需要 createElement
     todoContainer.insertAdjacentHTML('beforeend', t);
