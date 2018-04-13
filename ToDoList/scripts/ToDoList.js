@@ -1,3 +1,25 @@
+/**
+* TODO:
+*   http://www.zhangxinxu.com/wordpress/2012/09/new-viewport-relative-units-vw-vh-vm-vmin/
+*   https://segmentfault.com/q/1010000008486536
+*   https://www.cnblogs.com/hanqishihu/p/5986685.html
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var $ = function(selector) {
     return document.querySelector(selector);
 }
@@ -19,6 +41,9 @@ var bindEventAdd = function() {
         todoList.push(todo);
         saveTodos();
         insertTodo(todo);
+
+        // 添加完成后清空输入框内的数据
+        $('#id-todo-input').value = '';
     })
 }
 
@@ -115,7 +140,7 @@ var templateTodo = function(todo) {
         <div class='todo-cell'>
             <button class='todo-done'>完成</button>
             <button class='todo-delete'>删除</button>
-            <button class='todo-edit'>编辑</button>
+            <button class='todo-edit'>修改</button>
             <span class='todo-label' contenteditable='false'>${todo.task}</span>
             <span>${todo.time}</span>
         </div>
