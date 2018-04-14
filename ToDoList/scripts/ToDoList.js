@@ -137,13 +137,16 @@ var insertTodo = function(todo) {
 
 var templateTodo = function(todo) {
     var t = `
-        <div class='todo-cell'>
-            <button class='todo-done'>完成</button>
-            <button class='todo-delete'>删除</button>
-            <button class='todo-edit'>修改</button>
-            <span class='todo-label' contenteditable='false'>${todo.task}</span>
-            <span>${todo.time}</span>
-        </div>
+        <li class='todo-cell'>
+            <div class='todo-cell-butn'>
+                <button class='todo-done'>Done</button>
+                <button class='todo-delete'>Delete</button>
+                <button class='todo-edit'>Modify</button>
+            </div>
+
+            <span class='todo-task' contenteditable='false'>${todo.task}</span>
+            <span class='todo-time'>Created at ${todo.time}</span>
+        </li>
     `;
 
     return t;
@@ -183,17 +186,17 @@ var toggleClass = function(element, className) {
 var currentTime = function() {
     var date = new Date();
 
-    var y = date.getFullYear();
     var m = date.getMonth() + 1;
     var d = date.getDate();
     var h = date.getHours();
     var minutes = date.getMinutes();
-    var seconds = date.getSeconds();
 
     m = m < 10 ? '0' + m : m;
     d = d < 10 ? '0' + d : d;
+    h = h < 10 ? '0' + h : h;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
 
-    return `${y}/${m}/${d} ${h}:${minutes}:${seconds}`;
+    return `${m}/${d} ${h}:${minutes}`;
 }
 
 

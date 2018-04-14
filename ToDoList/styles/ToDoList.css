@@ -1,11 +1,10 @@
 * {
     padding: 0;
     margin: 0;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 body {
-    /* min-width: 600px; */
     font: 16px SimSun;
     background-color: #44565c;
 }
@@ -13,10 +12,10 @@ body {
 .container {
     position: relative;
     width: 980px;
-    /* min-height: 600px; */
-    margin: 0 auto;
-    background-color: #fff;
+    min-height: 100vh;
     padding-bottom: 55px;
+    margin: 0 auto;
+    background-color: #fafafa;
 }
 
 
@@ -24,21 +23,28 @@ body {
 header,
 footer {
     height: 55px;
-    color: rgba(255,255,255,0.75);
-    background-color: #24292e;
-    text-align: center;
     box-sizing: border-box;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    background-color: #24292e;
 }
 
 header {
     padding: 12px 0;
 }
 
-header label {
+.todo-form > label:first-child {
+    float: left;
+    padding: 0 20px;
     font-size: 24px;
     color: rgba(255,255,255,0.75);
     vertical-align: middle;
     cursor: pointer;
+}
+
+.todo-form > label:last-child {
+    float: right;
+    padding: 0 20px;
 }
 
 #id-todo-input {
@@ -46,7 +52,7 @@ header label {
     min-height: 30px;
     padding: 0 8px;
     border: 0;
-    border-radius: 3px;
+    border-radius: 3px 0 0 3px;
     vertical-align: middle;
 }
 
@@ -54,9 +60,10 @@ header label {
     width: 80px;
     height: 30px;
     border: 0;
-    border-radius: 3px;
-    background-color: rgba(255,255,255,0.75);
+    border-radius: 0 3px 3px 0;
     vertical-align: middle;
+    background-color: #44565C;
+    color: rgba(255,255,255,0.75);
     cursor: pointer;
 }
 
@@ -71,12 +78,24 @@ section {
 }
 
 #id-todo-list {
-    width: 600px;
+    width: 700px;
     margin: 0 auto;
 }
 
 .todo-cell {
-    padding: 7px 3px;
+    position: relative;
+    padding: 7px 3px 20px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    list-style-type: none;
+}
+
+.todo-cell-butn {
+    float: left;
+    width: 13%;
 }
 
 .todo-done,
@@ -85,19 +104,45 @@ section {
     width: 70px;
     height: 22px;
     padding: 2px;
-    border: 1px solid rgba(27,31,35,0.2);
+    border: none;
     border-radius: 3px;
+    margin-bottom: 5px;
     font-size: 14px;
     color: #24292e;
-    background-color: #eff3f6;
     cursor: pointer;
 }
 
-.done {
-    color: gray;
-    text-decoration: line-through;
+.todo-done {
+    background-color: #BEE38C;
 }
 
+.todo-delete {
+    background-color: #E0622C;
+}
+
+.todo-edit {
+    background-color: #9BD6FF;
+}
+
+.done {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.todo-task {
+    float: left;
+    width: 87%;
+    text-indent: 2em;
+}
+
+.todo-time {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: rgba(0,0,0,0.55);
+}
 
 /* footer */
 footer {
