@@ -1,50 +1,56 @@
-/**
-* TODO:
-*   http://www.zhangxinxu.com/wordpress/2012/09/new-viewport-relative-units-vw-vh-vm-vmin/
-*   https://segmentfault.com/q/1010000008486536
-*   https://www.cnblogs.com/hanqishihu/p/5986685.html
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var $ = function(selector) {
     return document.querySelector(selector);
+}
+
+var bindEventInputEnter = function() {
+    var todoInput = $('#id-todo-input');
+
+    todoInput.addEventListener('keydown', function(event) {
+        var target = event.target;
+        if (event.key === 'Enter') {
+            console.log("input enter");
+            // 失去焦点
+            target.blur();
+            // 阻止默认行为的发生, 也就是不插入回车
+            event.preventDefault();
+            operationInputValue();
+        }
+    })
 }
 
 // 给 add button 绑定添加事件
 var bindEventAdd = function() {
     var addButton = $('#id-todo-add-butn');
-    addButton.addEventListener('click', function(){
-        // 获得输入的数据
-        var todoInput = $('#id-todo-input');
-        var task = todoInput.value;
 
+    // click事件包含了按钮的回车事件
+    addButton.addEventListener('click', function(){
+        operationInputValue();
+    })
+}
+
+var operationInputValue = function() {
+    // 获得输入的数据
+    var todoInput = $('#id-todo-input');
+    var task = todoInput.value.trim();
+
+    if (task == '') {
+        alert('内容不能为空');
+    } else {
         // 生成 todo 对象
         var todo = {
             'task': task,
             'time': currentTime(),
+            'done': false,
         }
 
         todoList.push(todo);
         saveTodos();
+        judgeTodos();
         insertTodo(todo);
+    }
 
-        // 添加完成后清空输入框内的数据
-        $('#id-todo-input').value = '';
-    })
+    // 添加完成后清空输入框内的数据
+    $('#id-todo-input').value = '';
 }
 
 var bindEventEnter = function() {
@@ -76,20 +82,26 @@ var bindEventButton = function() {
         var target = event.target;
         if(target.classList.contains('todo-done')) {
             // 给 todo div 开关一个状态 class
-            var todoDiv = target.parentElement;
+            var todoDiv = target.parentElement.parentElement;
+            var index = indexOfElement(todoDiv);
+
             toggleClass(todoDiv, 'done');
+            toggleText(target, target.innerText);
+            toggleStatus(index, target.innerText);
+            saveTodos();
         } else if (target.classList.contains('todo-delete')) {
-            var todoDiv = target.parentElement;
-            var index = indexOfElement(target.parentElement);
+            var todoDiv = target.parentElement.parentElement;
+            var index = indexOfElement(todoDiv);
 
             todoDiv.remove();
             // 把元素从 todoList 中 remove 掉
             // delete todoList[index]
             todoList.splice(index, 1);
             saveTodos();
+            judgeTodos();
         } else if (target.classList.contains('todo-edit')) {
-            var cell = target.parentElement;
-            var span = cell.children[3];
+            var cell = target.parentElement.parentElement;
+            var span = cell.children[1];
             span.setAttribute('contenteditable', 'true');
             // span.contentEditable = true
             span.focus();
@@ -101,7 +113,7 @@ var bindEventBlur = function() {
     var todoContainer = $('#id-todo-list');
     todoContainer.addEventListener('blur', function(event){
         var target = event.target;
-        if (target.classList.contains('todo-label')) {
+        if (target.classList.contains('todo-task')) {
             // 让 span 不可编辑
             target.setAttribute('contenteditable', 'false');
             // 更新 todo
@@ -116,6 +128,8 @@ var bindEventBlur = function() {
 }
 
 var bindEvents = function() {
+    // 添加 todo 的 enter 按钮
+    bindEventInputEnter();
     // 添加 todo
     bindEventAdd();
     // 文本框输入 todo 按回车保存
@@ -136,10 +150,12 @@ var insertTodo = function(todo) {
 }
 
 var templateTodo = function(todo) {
+    var text = ['Restore', 'Done'];
+
     var t = `
-        <li class='todo-cell'>
+        <li class="todo-cell${todo.done ? ' done' : ''}">
             <div class='todo-cell-butn'>
-                <button class='todo-done'>Done</button>
+                <button class='todo-done'>${todo.done ? text[0] : text[1]}</button>
                 <button class='todo-delete'>Delete</button>
                 <button class='todo-edit'>Modify</button>
             </div>
@@ -163,6 +179,22 @@ var loadTodos = function() {
     return JSON.parse(s);
 }
 
+var judgeTodos = function() {
+    todoList = loadTodos();
+    var classValue = 'todo-nothing';
+
+    if (todoList.length == 0) {
+        var ul = $('#id-todo-list');
+        var t = `
+            <p class=${classValue}>看到它如此的空荡荡，你不想添加点什么吗？</p>
+        `
+
+        ul.insertAdjacentHTML('beforebegin', t);
+    } else if ($('.' + classValue)) {
+        $('.' + classValue).remove();
+    }
+}
+
 // 返回自己在父元素中的下标
 var indexOfElement = function(element) {
     var parent = element.parentElement;
@@ -183,9 +215,28 @@ var toggleClass = function(element, className) {
     }
 }
 
+var toggleText = function(element, text) {
+    var t = {
+        'Done': 'Restore',
+        'Restore': 'Done',
+    }
+
+    element.innerText = t[text];
+}
+
+var toggleStatus = function(index, text) {
+    var t = {
+        'Done': false,
+        'Restore': true,
+    }
+
+    todoList[index]['done'] = t[text];
+}
+
 var currentTime = function() {
     var date = new Date();
 
+    var y = date.getFullYear();
     var m = date.getMonth() + 1;
     var d = date.getDate();
     var h = date.getHours();
@@ -196,16 +247,20 @@ var currentTime = function() {
     h = h < 10 ? '0' + h : h;
     minutes = minutes < 10 ? '0' + minutes : minutes;
 
-    return `${m}/${d} ${h}:${minutes}`;
+    return `${y}-${m}-${d} ${h}:${minutes}`;
 }
 
 
 var initTodos = function() {
     todoList = loadTodos();
+
     for (var i = 0; i < todoList.length; i++) {
         var todo = todoList[i];
         insertTodo(todo);
     }
+
+    // 检测当前的 todo 项是否为空
+    judgeTodos();
 }
 
 var todoList = [];

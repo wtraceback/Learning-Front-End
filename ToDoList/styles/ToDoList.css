@@ -77,6 +77,12 @@ section {
     padding: 20px 0;
 }
 
+.todo-nothing {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.35);
+    font-size: 30px;
+}
+
 #id-todo-list {
     width: 700px;
     margin: 0 auto;
@@ -124,7 +130,11 @@ section {
     background-color: #9BD6FF;
 }
 
-.done {
+.done .todo-done {
+    background-color: #ccc;
+}
+
+.done > .todo-task {
     text-decoration: line-through;
     color: gray;
 }
