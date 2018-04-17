@@ -24,8 +24,8 @@ header,
 footer {
     height: 55px;
     box-sizing: border-box;
-    color: rgba(255,255,255,0.75);
     text-align: center;
+    color: rgba(255,255,255,0.75);
     background-color: #24292e;
 }
 
@@ -37,8 +37,8 @@ header {
     float: left;
     padding: 0 20px;
     font-size: 24px;
-    color: rgba(255,255,255,0.75);
     vertical-align: middle;
+    color: rgba(255,255,255,0.75);
     cursor: pointer;
 }
 
@@ -78,9 +78,9 @@ section {
 }
 
 .todo-nothing {
+    font-size: 30px;
     text-align: center;
     color: rgba(0, 0, 0, 0.35);
-    font-size: 30px;
 }
 
 #id-todo-list {
@@ -90,11 +90,11 @@ section {
 
 .todo-cell {
     position: relative;
+    overflow: hidden;
     padding: 7px 3px 20px;
     border: 1px solid #ccc;
-    margin-bottom: 20px;
     border-radius: 6px;
-    overflow: hidden;
+    margin-bottom: 20px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
     list-style-type: none;
 }

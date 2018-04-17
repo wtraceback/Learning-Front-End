@@ -1,0 +1,25 @@
+body {
+    min-width: 1500px;
+}
+
+#city-select,
+label {
+    cursor: pointer;
+}
+
+.aqi-chart-wrap {
+    position: relative;
+    top: 35px;
+    width: 1385px;
+    height: 600px;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 0 auto;
+}
+
+.columnar {
+    position: absolute;
+    bottom: 0;
+    width: 10px;
+    box-sizing: border-box;
+}

@@ -2,18 +2,18 @@ var $ = function(selector) {
     return document.querySelector(selector);
 }
 
+// 给 input 输入框按回车键时添加事件
 var bindEventInputEnter = function() {
     var todoInput = $('#id-todo-input');
 
     todoInput.addEventListener('keydown', function(event) {
-        var target = event.target;
         if (event.key === 'Enter') {
-            console.log("input enter");
             // 失去焦点
-            target.blur();
-            // 阻止默认行为的发生, 也就是不插入回车
+            event.target.blur();
+            // 阻止默认行为的发生
             event.preventDefault();
-            operationInputValue();
+
+            operateInputValue();
         }
     })
 }
@@ -24,11 +24,11 @@ var bindEventAdd = function() {
 
     // click事件包含了按钮的回车事件
     addButton.addEventListener('click', function(){
-        operationInputValue();
+        operateInputValue();
     })
 }
 
-var operationInputValue = function() {
+var operateInputValue = function() {
     // 获得输入的数据
     var todoInput = $('#id-todo-input');
     var task = todoInput.value.trim();
@@ -45,7 +45,7 @@ var operationInputValue = function() {
 
         todoList.push(todo);
         saveTodos();
-        judgeTodos();
+        judgeTodo();
         insertTodo(todo);
     }
 
@@ -55,55 +55,57 @@ var operationInputValue = function() {
 
 var bindEventEnter = function() {
     var todoContainer = $('#id-todo-list');
+
     todoContainer.addEventListener('keydown', function(event){
         var target = event.target;
+
+        // 编辑完了后点击了回车键
         if(event.key === 'Enter') {
             // 失去焦点
             target.blur();
-            // 阻止默认行为的发生, 也就是不插入回车
+            // 阻止默认行为的发生, 即不插入回车
             event.preventDefault();
 
-            // 更新 todo
-            var index = indexOfElement(target.parentElement);
-
             // 把元素在 todoList 中更新
+            var index = indexOfElement(target.parentElement);
             todoList[index].task = target.innerHTML;
-            // todoList.splice(index, 1)
-            saveTodos();
 
+            saveTodos();
         }
     })
 }
 
 var bindEventButton = function() {
-    // 通过 event.target 的 class 来检查点击的是什么
     var todoContainer = $('#id-todo-list');
+
     todoContainer.addEventListener('click', function(event){
         var target = event.target;
+
         if(target.classList.contains('todo-done')) {
-            // 给 todo div 开关一个状态 class
             var todoDiv = target.parentElement.parentElement;
             var index = indexOfElement(todoDiv);
 
+            // 给 todo div 开关一个状态 class
             toggleClass(todoDiv, 'done');
             toggleText(target, target.innerText);
             toggleStatus(index, target.innerText);
+
             saveTodos();
         } else if (target.classList.contains('todo-delete')) {
             var todoDiv = target.parentElement.parentElement;
             var index = indexOfElement(todoDiv);
 
+            // 把元素从 页面 以及 todoList 中 remove 掉
             todoDiv.remove();
-            // 把元素从 todoList 中 remove 掉
-            // delete todoList[index]
             todoList.splice(index, 1);
+
             saveTodos();
-            judgeTodos();
+            judgeTodo();
         } else if (target.classList.contains('todo-edit')) {
             var cell = target.parentElement.parentElement;
             var span = cell.children[1];
+
             span.setAttribute('contenteditable', 'true');
-            // span.contentEditable = true
             span.focus();
         }
     })
@@ -111,28 +113,30 @@ var bindEventButton = function() {
 
 var bindEventBlur = function() {
     var todoContainer = $('#id-todo-list');
+
+    // 编辑完了后点击了页面的其他地方，使其编辑处失去焦点
     todoContainer.addEventListener('blur', function(event){
         var target = event.target;
+
         if (target.classList.contains('todo-task')) {
             // 让 span 不可编辑
             target.setAttribute('contenteditable', 'false');
-            // 更新 todo
-            var index = indexOfElement(target.parentElement);
 
             // 把元素在 todoList 中更新
+            var index = indexOfElement(target.parentElement);
             todoList[index].task = target.innerHTML;
-            // todoList.splice(index, 1)
+
             saveTodos();
         }
     }, true)
 }
 
 var bindEvents = function() {
-    // 添加 todo 的 enter 按钮
+    // todo input 按回车时保存
     bindEventInputEnter();
     // 添加 todo
     bindEventAdd();
-    // 文本框输入 todo 按回车保存
+    // 任务栏的文本框输入 todo 按回车保存
     bindEventEnter();
     // 完成按钮和删除按钮
     bindEventButton();
@@ -140,12 +144,11 @@ var bindEvents = function() {
     bindEventBlur();
 }
 
-
 var insertTodo = function(todo) {
     // 添加到 container 中
     var todoContainer = $('#id-todo-list');
     var t = templateTodo(todo);
-    // 这个方法用来添加元素更加方便, 不需要 createElement
+
     todoContainer.insertAdjacentHTML('beforeend', t);
 }
 
@@ -168,7 +171,6 @@ var templateTodo = function(todo) {
     return t;
 }
 
-// 保存 todoList
 var saveTodos = function() {
     var s = JSON.stringify(todoList);
     localStorage.todoList = s;
@@ -179,8 +181,7 @@ var loadTodos = function() {
     return JSON.parse(s);
 }
 
-var judgeTodos = function() {
-    todoList = loadTodos();
+var judgeTodo = function() {
     var classValue = 'todo-nothing';
 
     if (todoList.length == 0) {
@@ -198,8 +199,10 @@ var judgeTodos = function() {
 // 返回自己在父元素中的下标
 var indexOfElement = function(element) {
     var parent = element.parentElement;
+
     for (var i = 0; i < parent.children.length; i++) {
         var e = parent.children[i];
+
         if (e === element) {
             return i;
         }
@@ -230,7 +233,7 @@ var toggleStatus = function(index, text) {
         'Restore': true,
     }
 
-    todoList[index]['done'] = t[text];
+    todoList[index].done = t[text];
 }
 
 var currentTime = function() {
@@ -250,7 +253,6 @@ var currentTime = function() {
     return `${y}-${m}-${d} ${h}:${minutes}`;
 }
 
-
 var initTodos = function() {
     todoList = loadTodos();
 
@@ -260,12 +262,12 @@ var initTodos = function() {
     }
 
     // 检测当前的 todo 项是否为空
-    judgeTodos();
+    judgeTodo();
 }
 
 var todoList = [];
 
-var __main = function() {
+var init = function() {
     // 绑定事件
     bindEvents();
 
@@ -273,4 +275,4 @@ var __main = function() {
     initTodos();
 }
 
-__main();
+init();
