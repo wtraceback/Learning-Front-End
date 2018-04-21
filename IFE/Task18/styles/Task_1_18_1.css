@@ -1,0 +1,14 @@
+.wrap-list {
+    margin-top: 10px;
+}
+
+.new {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    background-color: #F70000;
+}
