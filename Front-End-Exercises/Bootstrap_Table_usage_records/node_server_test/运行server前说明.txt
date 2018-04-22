@@ -1,0 +1,2 @@
+需要通过命令行进入该目录中，执行命令：npm install express
+下载依赖的node_module然后再运行server.js
