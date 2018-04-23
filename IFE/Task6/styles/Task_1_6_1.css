@@ -1,0 +1,404 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #44565c;
+}
+
+.container {
+    width: 980px;
+    height: 1386px;
+    padding: 0 44px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+
+/*header*/
+header {
+    overflow: hidden;
+    border-bottom: 2px solid #938e8c;
+    margin-bottom: 34px;
+}
+
+.header-title,
+.header-time,
+.footer-text {
+    font: 12px SimHei;
+}
+
+.header-title {
+    float: left;
+    width: 100px;
+    height: 61px;
+    text-align: center;
+    line-height: 100px;
+    color: #fff;
+    background-color: #d55d5c;
+}
+
+.header-time,
+.footer-text {
+    float: right;
+    height: 61px;
+    color: #d45d5c;
+}
+
+.header-time {
+    line-height: 100px;
+}
+
+
+/*section part1*/
+.part1 {
+    position: relative;
+    margin-bottom: 42px;
+}
+
+.one-left {
+    position: relative;
+    width: 641px;
+    height: 301px;
+}
+
+.green-screen,
+.red-screen {
+    position: absolute;
+    top: 0;
+    width: 191px;
+    height: 301px;
+}
+
+.green-screen {
+    left: 0;
+    background-color: rgba(0, 255, 0, 0.2);
+}
+
+.red-screen {
+    right: 0;
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.one-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 203px;
+    height: 301px;
+    border-top: 2px solid #cc8091;
+}
+
+.about,
+.tech {
+    font: small-caps 24px/40px "Microsoft YaHei";
+    color: #000;
+    text-decoration: underline;
+}
+
+.tech {
+    margin-top: -10px;
+}
+
+.about-tech {
+    font: italic 12px/10px KaiTi;
+    color: #676767;
+}
+
+.seven {
+    margin-left: -20px;
+    font: italic 116px "Microsoft YaHei";
+    color: #75b86b;
+}
+
+.num-letter {
+    position: relative;
+    top: -7px;
+}
+
+.three,
+.text-css,
+.text-cssss {
+    position: absolute;
+    font-family: "Microsoft YaHei";
+    color: #cc8091;
+}
+
+.three {
+    font-size: 55px;
+}
+
+.text-css {
+    top: 21px;
+    left: 82px;
+    font-size: 21px;
+}
+
+.text-cssss {
+    top: 44px;
+    left: 82px;
+    font-size: 12px;
+    color: #ccc;
+}
+
+
+/*section part2*/
+.part2 {
+    overflow: hidden;
+    margin-bottom: 63px;
+}
+
+.two-left,
+.two-middle,
+.two-right {
+    float: left;
+    margin-right: 28px;
+}
+
+.two-left {
+    width: 230px;
+}
+
+.what,
+.when,
+.how {
+    margin-bottom: 11px;
+    font: bold 16px "Microsoft YaHei";
+    text-decoration: underline;
+}
+
+.what {
+    color: #418c59;
+}
+
+.two-left p {
+    font: 12px/16px SimSun;
+    color: #767777;
+}
+
+.two-middle {
+    width: 220px;
+}
+
+.when {
+    color: #d2994f;
+}
+
+.two-middle p,
+.two-right p,
+.two-right > ul {
+    font: 12px/16px "Microsoft YaHei";
+    color: #231815;
+    opacity: 0.7;
+}
+
+.two-right {
+    width: 135px;
+}
+
+.how {
+    color: #cc7680;
+}
+
+.two-right > p {
+    line-height: 20px;
+}
+
+.two-right > p:nth-child(4) {
+    margin-bottom: 20px;
+}
+
+.two-right > ul {
+    font-style: italic;
+    line-height: 20px;
+    list-style-type: none;
+}
+
+.percent {
+    color: #cd4a48;
+}
+
+
+/*section part3*/
+.three-left {
+    float: left;
+    width: 415px;
+    margin-bottom: 38px;
+}
+
+.article-l-top {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #11456b;
+    margin-bottom: 20px;
+}
+
+.article-l-top > h2 {
+    font: bold 42px/42px SimHei;
+    color: #11456b;
+}
+
+.article-l-top > h2:last-child {
+    font-size: 33px;
+}
+
+.the {
+    font: italic bold 72px/55px SimHei;
+    color: #f5e327;
+}
+
+.article-l-bottom {
+    overflow: hidden;
+}
+
+.article-l-bottom > p {
+    font: 12px/16px SimSun;
+    color: #767777;
+}
+
+.article-l-bottom > p:last-child {
+    text-indent: 24px;
+}
+
+.text-front {
+    float: left;
+    margin: -10px 10px 0 10px;
+    font: 70px/85px "Microsoft YaHei";
+    color: #f5e327;
+}
+
+.article-l-bottom > img {
+    float: right;
+    margin: 20px 0 10px 20px;
+}
+
+.three-right {
+    float: right;
+    width: 458px;
+}
+
+.article-r-top {
+    position: relative;
+    margin-bottom: 30px;
+    font-size: 0;
+}
+
+.black-green {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 458px;
+    height: 61px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.black-green p {
+    height: 44px;
+    padding-left: 10px;
+    border-left: 3px solid #72b16a;
+    margin: 8px 0 0 35px;
+    font: 26px/44px "Microsoft YaHei";
+    color: #fff;
+}
+
+.black-green span {
+    font: italic 12px/140% "Microsoft YaHei";
+    color: #72b16a;
+}
+
+.article-r-bottom {
+    width: 459px;
+    height: 318px;
+    background-color: #eeeed6;
+}
+
+.article-r-bottom > ul {
+    height: 158px;
+    padding: 30px 0 30px 0;
+    margin-left: 40px;
+    box-sizing: border-box;
+    font: 16px/20px SimSun;
+    text-align: left;
+    color: #5a5b5b;
+    list-style-image: url(../images/triangle.png);
+}
+
+.article-r-bottom li {
+    margin-bottom: 15px;
+}
+
+.article-r-bottom li span {
+    font: italic 12px/20px SimSun;
+    text-align: right;
+    color: #5a5b5b;
+}
+
+.article-r-bottom-l {
+    float: left;
+    width: 260px;
+    height: 160px;
+    padding: 36px 0;
+    box-sizing: border-box;
+    background-color: #d45d5c;
+}
+
+.article-r-bottom-l > p:nth-child(1) {
+    float: left;
+    height: 86px;
+    padding: 0 5px 0 10px;
+    border-right: 2px solid #fff;
+    margin-right: 10px;
+    font: 110px/86px "Microsoft YaHei";
+    color: #fff;
+}
+
+.article-r-bottom-l > p:nth-child(2),
+.article-r-bottom-l > p:nth-child(3) {
+    font: italic 21px/24px SimHei;
+    color: #fff;
+}
+
+.article-r-bottom-l > p:last-child {
+    font: 12px/12px SimHei;
+    color: #fff;
+}
+
+.article-r-bottom-r {
+    float: right;
+    width: 199px;
+}
+
+.article-r-bottom-r > p {
+    padding-left: 15px;
+    font: italic 14px/16px SimHei;
+    color: #5a5b5b;
+}
+
+.quote-l,
+.quote-r {
+    font-size: 72px;
+    font-style: normal;
+    color: #d45d5c;
+}
+
+.quote-l {
+    position: relative;
+    top: 36px;
+    padding-right: 10px;
+    margin-left: -38px;
+}
+
+.quote-r {
+    float: right;
+    position: relative;
+    top: 30px;
+    left: 15px;
+}
+
+/*footer*/
+footer {
+    overflow: hidden;
+    border-top: 1px solid #938e8c;
+    clear: both;
+}
