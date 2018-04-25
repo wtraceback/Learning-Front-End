@@ -33,7 +33,7 @@ var bindEventLeftIn = function() {
          var value = valueOfInput();
 
          if (value != undefined) {
-             list.splice(0, 0, value);
+             list.unshift(value);
              insertNewElement('afterbegin', value);
          }
      });
@@ -62,7 +62,8 @@ var bindEventLeftOut = function() {
             var wrap = $('.wrap-list').children;
 
             wrap[0].remove();
-            list.splice(0, 1);
+            var val = list.shift();
+            alert(val);
         }
 
     })
@@ -79,7 +80,8 @@ var bindEventRightOut = function() {
             var wrap = $('.wrap-list').children;
 
             wrap[len - 1].remove();
-            list.pop();
+            var val = list.pop();
+            alert(val);
         }
     })
 }
@@ -97,7 +99,7 @@ var indexOfElement = function(element) {
     }
 }
 
-// 处理后面加入的新元素的点击事件（事件委托）
+// 处理加入的元素的点击事件（事件委托）
 var bindEventHandles = function() {
     var wrap = $('.wrap-list');
 
