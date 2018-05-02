@@ -1,0 +1,11 @@
+.wrap-list {
+    margin-top: 10px;
+}
+
+.new {
+    display: inline-block;
+    width: 15px;
+    margin-left: 5px;
+    color: #fff;
+    background-color: #F70000;
+}
