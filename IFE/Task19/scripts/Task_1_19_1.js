@@ -14,7 +14,7 @@ var valueOfInput = function() {
         return;
     }
 
-    return value;
+    return parseInt(value);
 }
 
 // 在对应的位置插入新元素
@@ -28,7 +28,7 @@ var insertNewElement = function(location, val) {
 var checkListBoundaries = function() {
     var len = 60;
 
-    if (list.length == 60) {
+    if (list.length === len) {
         alert("数组长度已达到上限！");
         return false;
     }
@@ -126,19 +126,40 @@ var bindEventHandles = function() {
     })
 }
 
-var swap = function(index1, index2) {
-    var temp = list[index1];
-    list[index1] = list[index2];
-    list[index2] = temp;
+var renderList = function() {
+    var wrap = $(".wrap-list");
+
+    wrap.innerHTML = "";
+    for (var i = 0; i < list.length; i++) {
+        insertNewElement('beforeend', list[i]);
+    }
 }
 
 var bubbleSort = function() {
+    // 将冒泡排序的 for 语句改成 if 语句
+    var i = 0, j = 0, temp;
     var len = list.length;
-    for (var i = 0; i < len; i++) {
-        for (var j = 0; j < len - 1 - i; j++) {
-            if (list[j] > list[j + 1]) {
-                swap(j, j + 1);
+    var timer = null;
+
+    timer = setInterval(run, 30);
+    function run() {
+        if (i < len) {
+            if (j < len - 1 - i) {
+                if (list[j] > list[j + 1]) {
+                    temp = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = temp;
+
+                    renderList();
+                }
+                j++;
+            } else {
+                i++;
+                j = 0;
             }
+        } else {
+            clearInterval(timer);
+            return;
         }
     }
 }
@@ -146,12 +167,6 @@ var bubbleSort = function() {
 var bindEventSort = function() {
     $('.bubble-sort').addEventListener('click', function() {
         bubbleSort();
-
-        var wrap = $(".wrap-list");
-        wrap.innerHTML = "";
-        for (var i = 0; i < list.length; i++) {
-            insertNewElement('beforeend', list[i]);
-        }
     });
 }
 
