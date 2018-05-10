@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>骰子的布局</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            body {
+                padding: 20px;
+                background-color: #292929;
+                display: flex;
+                justify-content: space-around;
+            }
+            .case {
+                width: 100px;
+                height: 100px;
+                padding: 10px;
+                border-radius: 10px;
+                background-color: #E7E7E7;
+            }
+            .spot {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background-color: #000;
+            }
+
+            /* flex layout */
+            /* 一点 */
+            .box1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* 两点 */
+            .box2 {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .box2 .item:nth-child(2) {
+                align-self: flex-end;
+            }
+
+            /* 三点 */
+            .box3 {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .box3 .item:nth-child(2) {
+                align-self: center;
+            }
+
+            .box3 .item:nth-child(3) {
+                align-self: flex-end;
+            }
+
+            /* 四点 */
+            .box4 {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .box4 .column {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            /* 五点 */
+            .box5 {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .box5 .column {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .box5 .column:nth-child(2) {
+                justify-content: center;
+            }
+
+            /* 六点 */
+            .box6 {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .box6 .column {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 一点 -->
+        <div class="box1 case">
+            <span class="item spot"></span>
+        </div>
+
+        <!-- 两点 -->
+        <div class="box2 case">
+            <span class="item spot"></span>
+            <span class="item spot"></span>
+        </div>
+
+        <!-- 三点 -->
+        <div class="box3 case">
+            <span class="item spot"></span>
+            <span class="item spot"></span>
+            <span class="item spot"></span>
+        </div>
+
+        <!-- 四点 -->
+        <div class="box4 case">
+            <div class="column">
+                <span class="item spot"></span>
+                <span class="item spot"></span>
+            </div>
+            <div class="column">
+                <span class="item spot"></span>
+                <span class="item spot"></span>
+            </div>
+        </div>
+
+        <!-- 五点 -->
+        <div class="box5 case">
+            <div class="column">
+                <span class="item spot"></span>
+                <span class="item spot"></span>
+            </div>
+            <div class="column">
+                <span class="item spot"></span>
+            </div>
+            <div class="column">
+                <span class="item spot"></span>
+                <span class="item spot"></span>
+            </div>
+        </div>
+
+        <!-- 六点 -->
+        <div class="box6 case">
+            <div class="column">
+                <span class="item spot"></span>
+                <span class="item spot"></span>
+                <span class="item spot"></span>
+            </div>
+            <div class="column">
+                <span class="item spot"></span>
+                <span class="item spot"></span>
+                <span class="item spot"></span>
+            </div>
+        </div>
+    </body>
+</html>
