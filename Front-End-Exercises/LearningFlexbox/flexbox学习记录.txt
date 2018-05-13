@@ -1,0 +1,58 @@
+CSS3 弹性盒子(Flexible Box 或 Flexbox)，是一种用于在页面上布置元素的布局模式，
+使得当页面布局必须适应不同的屏幕尺寸和不同的显示设备时，元素可预测地运行。
+
+布局的传统解决方案，基于盒模型，依赖display属性 + position属性 + float属性
+设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。
+
+采用 Flex 布局的元素，称为 Flex 容器（flex container），简称"容器"。
+它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称"项目"。
+
+
+二、基本概念：
+    容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）
+    叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。
+    项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。
+
+
+三、容器的属性
+    以下6个属性设置在容器上。
+
+    1) flex-direction属性: 决定主轴的方向
+        flex-direction: row（默认值） | row-reverse | column | column-reverse;
+
+    2) flex-wrap属性: 决定了如何换行
+        flex-wrap: nowrap（默认） | wrap | wrap-reverse;
+
+    3) flex-flow属性: flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+        flex-flow: <flex-direction> || <flex-wrap>;
+
+     4) justify-content属性: 定义了项目在主轴上的对齐方式
+        justify-content: flex-start（默认值） | flex-end | center | space-between | space-around;
+
+    5) align-items属性: 定义项目在交叉轴上如何对齐
+        align-items: flex-start | flex-end | center | baseline | stretch（默认值）;
+
+    6) align-content属性: 定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用
+        align-content: flex-start | flex-end | center | space-between | space-around | stretch（默认值）;
+
+
+四、项目的属性
+    以下6个属性设置在项目上。
+    1) order属性: 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+        order: <integer>;
+
+    2) flex-grow属性: 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+        flex-grow: <number>; /* default 0 */
+
+    3) flex-shrink属性: 定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+        flex-shrink: <number>; /* default 1 */
+
+    4) flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。
+        浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。
+        flex-basis: <length> | auto; /* default auto */
+
+    5) flex属性: 是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
+        flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+
+    6) align-self属性: 允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。
+        align-self: auto（默认值） | flex-start | flex-end | center | baseline | stretch;
