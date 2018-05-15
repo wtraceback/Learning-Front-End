@@ -1,0 +1,167 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: SimHei;
+}
+
+.container {
+    min-width: 1280px
+}
+
+
+/* header */
+header {
+    height: 60px;
+}
+
+.header-left {
+    float: left;
+    margin-top: 15px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+.header-left > img {
+    width: 30px;
+    height: 30px;
+}
+
+.title {
+    float: right;
+    padding-top: 5px;
+    margin-left: 10px;
+    font-size: 21px;
+    color: #393a3a;
+}
+
+.header-right {
+    float: right;
+    margin-right: 50px;
+    line-height: 60px;
+    cursor: pointer;
+}
+
+.sign-in {
+    float: right;
+    margin-top: -3px;
+    margin-left: 10px;
+    color: #e74f4d;
+}
+
+nav {
+    float: right;
+    margin-right: 80px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav li {
+    float: left;
+    width: 100px;
+    height: 60px;
+    color: #787b83;
+    text-align: center;
+    line-height: 60px;
+}
+
+nav li:hover {
+    border-bottom: 3px solid #e74f4d;
+    cursor: pointer;
+    color: #e74f4d;
+}
+
+
+/* section-1 */
+.section-1 {
+    position: relative;
+    height: 650px;
+    background-image: url(../images/pic01.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.introduct {
+    position: absolute;
+    top: 180px;
+    left: 100px;
+    color: #fff;
+}
+
+.intro-life {
+    font: 60px sans-serif;
+    margin-bottom: 15px;
+}
+
+.intro-zh {
+    font-size: 21px;
+    width: 300px;
+    margin-bottom: 70px;
+}
+
+.intro-start {
+    width: 320px;
+    height: 60px;
+    border: none;
+    font-size: 30px;
+    background-color: #e8504f;
+    color: #fff;
+}
+
+
+/* section-2 */
+.section-2 {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cell {
+    width: 25%;
+    text-align: center;
+}
+
+.cell > p {
+    width: 100%;
+    height: 50px;
+    padding: 0 65px;
+    margin-top: 20px;
+    color: #787b83;
+}
+
+.cell:not(:last-child) > p {
+    border-right: 3px solid #ccc;
+}
+
+
+/* section-3 */
+.section-3 {
+
+}
+
+.about-top {
+    height: 400px;
+    padding-top: 125px;
+    text-align: center;
+    background-color: #ededed;
+}
+
+.about-top > p {
+    margin-top: 50px;
+    font-size: 50px;
+    color: #9b9b9b;
+}
+
+.about-bottom {
+    height: 400px;
+    background-image: url(../images/pic02.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
