@@ -142,10 +142,6 @@ nav li:hover {
 
 
 /* section-3 */
-.section-3 {
-
-}
-
 .about-top {
     height: 400px;
     padding-top: 125px;
@@ -164,4 +160,116 @@ nav li:hover {
     background-image: url(../images/pic02.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.info {
+    height: 50%;
+    text-align: center;
+    padding-top: 55px;
+}
+
+.info > p:nth-child(1) {
+    margin-bottom: -5px;
+    font-size: 22px;
+    color: #fff;
+}
+
+.info > span {
+    display: inline-block;
+    width: 35px;
+    border: 1px solid #fff;
+}
+
+.info > p:last-child {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #fff;
+}
+
+.selec {
+    position: relative;
+    text-align: center;
+}
+
+.province {
+    display: inline-block;
+}
+
+.province > input {
+    border: 1px solid #bf4e48;
+}
+
+.input-select,
+.input-search,
+.ul-option {
+    width: 240px;
+    height: 36px;
+    border: none;
+    cursor: pointer;
+}
+
+.input-select {
+    padding-left: 10px;
+    margin-right: 20px;
+    background-image: url(../images/icon-8.png);
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+
+.input-search {
+    font-size: 16px;
+    color: #fff;
+    background-color: #bf4e48;
+}
+
+.ul-option {
+    position: absolute;
+    height: auto;
+    border: 1px solid #bf4e48;
+    list-style-type: none;
+}
+
+.ul-option > li {
+    padding: 8px 0;
+    font-size: 13px;
+    color: #9b9b9b;
+    background-color: #e3e3e5;
+}
+
+.ul-option > li:hover {
+    background-image: url(../images/icon-8.png);
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+    color: #fff;
+    background-color: #bf4e48;
+}
+
+
+/* section-4 */
+.section-4 {
+    height: 500px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.art-show {
+    height: 400px;
+}
+
+.art-title {
+    margin: 10px 0;
+}
+
+.art-hint {
+    font-size: 13px;
+    color: #9b9b9b;
+}
+
+.night-move {
+    margin: 12px 0 5px;
+    font-size: 24px;
+    letter-spacing: 1em;
+    text-indent: 1em;
 }
