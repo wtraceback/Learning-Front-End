@@ -10,9 +10,8 @@ Git的学习笔记
 
 
 -----------
-## IFE
-百度前端技术学院 IFE2016
-[任务列表](http://ife.baidu.com/2016/task/all)
+## IFE<br>
+[百度前端技术学院 IFE2016](http://ife.baidu.com/2016/task/all)
 
 -----------
 ## ToDoList
