@@ -1,0 +1,273 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 1280px;
+}
+
+
+/* header */
+header {
+    height: 56px;
+    background-color: #228abf;
+}
+
+.header-content {
+    width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.header-l {
+    float: left;
+    width: 7.5%;
+    height: 100%;
+    text-align: right;
+    line-height: 56px;
+}
+
+.header-l > img {
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.header-r {
+    position: relative;
+    top: 50%;
+    float: right;
+    width: 35%;
+    height: 28px;
+    transform: translateY(-50%);
+}
+
+.search {
+    position: relative;
+    float: left;
+    width: 300px;
+}
+
+.search input {
+    width: 100%;
+    height: 28px;
+    padding-left: 12.5%;
+    border: none;
+    border-radius: 14px;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 7px;
+    top: 0;
+    width: 10%;
+    height: 100%;
+    background: url(../images/zoom.png) no-repeat center center;
+    cursor: pointer;
+}
+
+.login {
+    float: left;
+    width: 50px;
+    height: 100%;
+    margin-left: 20px;
+    font-size: 12px;
+    line-height: 28px;
+    color: #fff;
+    text-align: right;
+    text-decoration: none;
+    background: url(../images/login.png) no-repeat 0 6px;
+}
+
+.header-r::after {
+    display: table;
+    clear: both;
+    content: "";
+}
+
+/* section */
+section {
+    width: 1280px;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: #ededed;
+}
+
+.content-l {
+    float: left;
+    width: 260px;
+    background-color: #2a2e3d;
+}
+
+.user-info {
+    padding-left: 50px;
+}
+
+.user {
+    margin: 20px 0;
+}
+
+.user-icon {
+    float: left;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #b9babe;
+    border-radius: 50%;
+}
+
+.user::after {
+    display: table;
+    content: "";
+    clear: both;
+}
+
+.user-icon > div {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    margin-top: 2px;
+    margin-left: 2px;
+    background-color: #b9babe;
+}
+
+.user-name {
+    float: left;
+    display: inline-block;
+    color: #fff;
+    margin-left: 20px;
+    margin-top: 30px;
+    transform: translateY(-50%);
+    text-decoration: none;
+}
+
+.follower {
+    margin-left: -10px;
+    margin-bottom: 20px;
+}
+
+.follower > li {
+    display: inline-block;
+    width: 85px;
+    text-align: center;
+    color: #67778b;
+    cursor: pointer;
+}
+
+.follower > li:first-child {
+    border-right: 2px solid #313545;
+}
+
+.f-text {
+    font-size: 13px;
+}
+
+.info-list {
+    font-size: 13px;
+    list-style-type: none;
+}
+
+.info-list > li {
+    min-height: 50px;
+    padding-left: 50px;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.info-list > li:hover {
+    background-color: #383d4e;
+}
+
+.list-active-1 {
+    background-color: #383d4e;
+}
+
+
+
+.info-list > li > a {
+    padding-left: 30px;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.info-list a {
+    color: #6e8096;
+    text-decoration: none;
+}
+
+.list-active-1 > a {
+    color: #ecebec;
+}
+
+.info-list > li:first-child > a {
+    background-image: url(../images/file_open.png);
+}
+
+.info-list > li:nth-child(2) > a,
+.info-list > li:nth-child(4) > a,
+.info-list > li:nth-child(5) > a {
+    background-image: url(../images/star.png);
+}
+
+.info-list > li:nth-child(3) > a {
+    background-image: url(../images/share.png);
+}
+
+.info-list > li:nth-child(6) > a {
+    background-image: url(../images/doc_close.png);
+}
+
+.info-file {
+    padding-left: 30px;
+    margin-top: -5px;
+}
+
+.info-file > li {
+    min-height: 35px;
+    padding-left: 17px;
+    line-height: 35px;
+    list-style-type: none;
+}
+
+.info-file > li {
+    background: url(../images/close_arrow.png) no-repeat left center;
+}
+
+.info-file > li:nth-child(2) {
+    background: url(../images/open_arrow.png) no-repeat left 16px;
+}
+
+.info-file > li > a {
+    padding-left: 17px;
+    background: url(../images/file_close.png) no-repeat left center;
+}
+
+.info-file > li:nth-child(2) > a {
+    background: url(../images/file_cur.png) no-repeat left center;
+}
+
+.info-doc {
+    list-style-type: none;
+}
+
+.info-doc > li {
+    padding-left: 17px;
+}
+
+.info-doc > li > a {
+    padding-left: 17px;
+}
+
+.info-doc > li:first-child > a {
+    background: url(../images/doc_open.png) no-repeat left center;
+}
+
+.info-doc > li:nth-child(2) > a {
+    background: url(../images/doc_close.png) no-repeat left center;
+}
+
+.content-r {
+    float: left;
+    width: 1020px;
+}
