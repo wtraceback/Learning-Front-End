@@ -1,0 +1,146 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ccc;
+}
+
+/* container */
+.container {
+    width: 350px;
+    height: 100vh;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+/* first */
+.first table {
+    width: 300px;
+    margin: 0 auto;
+    font-weight: bold;
+    text-align: left;
+}
+
+.first th {
+    color: #fff;
+    background-color: #010000;
+}
+
+.first tbody tr:nth-child(-n + 3) {
+    color: #f00;
+}
+
+.first tbody tr:nth-child(even) {
+    background-color: #ccc;
+}
+
+/* two */
+.input-box {
+    display: block;
+    width: 100px;
+    border: 2px solid #ddd;
+    margin: 20px auto;
+    transition: width 1s;
+}
+
+.input-box:focus {
+    width: 200px;
+}
+
+/* three */
+.three {
+    overflow: hidden;
+    position: relative;
+    width: 300px;
+    height: 250px;
+    margin: 30px auto;
+    background-color: #f00;
+}
+
+.sliders {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    list-style-type: none;
+    animation: 0.5s slider-init;
+}
+
+.sliders li {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    animation: 0.5s slider-out;
+}
+
+#slider-1 {
+    background-color: #f00;
+}
+
+#slider-2 {
+    background-color: #0f0;
+}
+
+#slider-3 {
+    background-color: #00f;
+}
+
+.sliders li:target {
+    left: 0;
+    animation: 0.5s slider-in;
+}
+
+@keyframes slider-init {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 0%;
+    }
+}
+
+@keyframes slider-out {
+    0% {
+        left: 0%;
+    }
+
+    100% {
+        left: -100%;
+    }
+}
+
+@keyframes slider-in {
+    0% {
+        left: 100%;
+    }
+
+    100% {
+        left: 0%;
+    }
+}
+
+.butns {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.butns > a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    padding: 10px 5px;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    text-decoration: none;
+}
