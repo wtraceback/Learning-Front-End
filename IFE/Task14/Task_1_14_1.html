@@ -7,49 +7,56 @@
     <body>
         <h3>污染城市列表</h3>
         <ul id="aqi-list">
-            <!--
-            <li>第一名：福州（样例），10</li>
-            <li>第二名：福州（样例），10</li> -->
+        <!--
+        <li>第一名：福州（样例），10</li>
+        	<li>第二名：福州（样例），10</li> -->
         </ul>
 
         <script type="text/javascript">
-            var aqiData = [
-                ["北京", 90],
-                ["上海", 50],
-                ["福州", 10],
-                ["广州", 50],
-                ["成都", 90],
-                ["西安", 100]
-            ];
-
             (function () {
-                /*
-                在注释下方编写代码
-                遍历读取aqiData中各个城市的数据
-                将空气质量指数大于60的城市显示到aqi-list的列表中
-                */
+                var aqiData = [
+                    ["北京", 90],
+                    ["上海", 50],
+                    ["福州", 10],
+                    ["广州", 50],
+                    ["成都", 90],
+                    ["西安", 100]
+                ];
 
-                // 筛选出空气质量指数大于60的城市
-                var data = aqiData.filter(function(value) {
-                    return value[1] > 60;
-                });
-
-                // 对于筛选出的值进行降序排序
-                data.sort(function(a, b) {
-                    return b[1] - a[1];
-                });
-
-                // 将筛选出的值依次添加到aqi-list列表中
-                var renderData = function() {
-                    var ul = document.querySelector("#aqi-list");
-                    var ranking = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
-
-                    for(var i = 0; i < data.length; i++) {
-                        ul.insertAdjacentHTML('beforeend', `<li>第${ranking[i]}名: ${data[i][0]}, ${data[i][1]}</li>`);
-                    }
+                var $ = function(selector) {
+                    return document.querySelector(selector);
                 }
 
-                renderData();
+                // 进行降序排序
+                var sortData = function() {
+                    aqiData.sort(function(a, b) {
+                        return b[1] - a[1];
+                    });
+                }
+
+                // 筛选出空气质量指数大于 60 的城市
+                var filterData = function() {
+                    aqiData = aqiData.filter(function(r) {
+                        return r[1] > 60;
+                    });
+                }
+
+                var renderData = function() {
+                    var ranking = ['一', '二', '三', '四', '五', '六', '七'];
+                    var ul = $('#aqi-list');
+
+                    aqiData.forEach(function(currentValue, index) {
+                        ul.insertAdjacentHTML('beforeend', `<li>第${ranking[index]}名： ${currentValue[0]}, 空气质量指数： ${currentValue[1]}</li>`);
+                    });
+                }
+
+                var __main = function() {
+                    filterData();
+                    sortData();
+                    renderData();
+                }
+
+                __main();
             })();
         </script>
     </body>

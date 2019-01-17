@@ -16,81 +16,72 @@
         </ul>
 
         <ul id="resort">
-            <!--
+        <!--
             <li>第一名：北京空气质量：<b>90</b></li>
             <li>第二名：北京空气质量：<b>90</b></li>
             <li>第三名：北京空气质量：<b>90</b></li>
-            -->
+        -->
         </ul>
+
         <button id="sort-btn">排序</button>
 
         <script type="text/javascript">
-            var $ = function(selector) {
-                return document.querySelector(selector);
-            }
-
-            /**
-            * getData方法
-            * 读取id为source的列表，获取其中城市名字及城市对应的空气质量
-            * 返回一个数组，格式见函数中示例
-            */
-            function getData() {
-                /*
-                data = [
-                ["北京", 90],
-                ["北京", 90]
-                ……
-                ]
-                */
-                var data = [];
-                var list = $("#source").children;
-
-                for (var i = 0; i < list.length; i++) {
-                    data.push([list[i].firstChild.nodeValue, parseFloat(list[i].lastChild.innerText)]);
+            (function() {
+                var $ = function(selector) {
+                    return document.querySelector(selector);
                 }
 
-                return data;
-            }
+                // 获取数据
+                var getData = function() {
+                    // var source = $("#source").children;
+                    var source = $('#source').querySelectorAll('li');
 
-            /**
-            * sortAqiData
-            * 按空气质量对data进行从小到大的排序
-            * 返回一个排序后的数组
-            */
-            function sortAqiData(data) {
-                data.sort(function(a, b) {
-                    return a[1] - b[1];
-                });
+                    var data = [];
+                    for (var i = 0; i < source.length; i++) {
+                        var temp = source[i];
+                        var text = temp.childNodes[0].nodeValue;
+                        var quality = Number(temp.childNodes[1].innerText);
 
-                return data;
-            }
+                        data.push([text, quality]);
+                    }
 
-            /**
-            * render
-            * 将排好序的城市及空气质量指数，输出显示到id为resort的列表中
-            * 格式见ul中的注释的部分
-            */
-            function render(data) {
-                var ranking = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
-
-                for (var i = 0; i < data.length; i++) {
-                    $("#resort").insertAdjacentHTML('beforeend', `<li>第${ranking[i]}名：${data[i][0]}<b>${data[i][1]}</b></li>`);
+                    return data;
                 }
-            }
 
-            function btnHandle() {
-                var aqiData = getData();
-                aqiData = sortAqiData(aqiData);
+                // 对获取的数据进行排序
+                var sortAqiData = function(data) {
+                    data.sort(function(a, b) {
+                        return b[1] - a[1];
+                    });
 
-                render(aqiData);
-            }
+                    return data;
+                }
 
-            function init() {
-                // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
-                $("#sort-btn").onclick = btnHandle;
-            }
+                // 将数据渲染，在页面显示
+                var render = function(data) {
+                    var ranking = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+                    var ul = $('#resort');
+                    ul.innerHTML = "";
 
-            init();
+                    data.forEach(function(currentValue, index) {
+                        ul.insertAdjacentHTML('beforeend', `<li>第${ranking[index]}名: ${currentValue[0]} <b>${currentValue[1]}</b></li>`);
+                    });
+                }
+
+                var btnHandle = function() {
+                    var aqiData = getData();
+                    aqiData = sortAqiData(aqiData);
+                    render(aqiData);
+                }
+
+                var __main = function() {
+                    $('#sort-btn').addEventListener('click', function() {
+                        btnHandle();
+                    });
+                }
+
+                __main();
+            })();
         </script>
     </body>
 </html>
