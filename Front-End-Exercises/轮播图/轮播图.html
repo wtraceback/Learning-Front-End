@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="./styles/slider.css">
+    </head>
+    <body>
+        <div class="slider">
+            <div class="img-list">
+                <img class="img-item img-active" src="./images/1.jpg" alt="">
+                <img class="img-item" src="./images/2.jpg" alt="">
+                <img class="img-item" src="./images/3.jpg" alt="">
+            </div>
+
+            <ul class="spot-list">
+                <li class="spot-item spot-active"></li>
+                <li class="spot-item"></li>
+                <li class="spot-item"></li>
+            </ul>
+
+            <button id="previous" class="butn" type="button" name="button">
+                <span class="butn-text">&lt;</span>
+            </button>
+            <button id="next" class="butn" type="button" name="button">
+                <span class="butn-text">&gt;</span>
+            </button>
+        </div>
+
+        <script>
+            (function() {
+                var $ = function(selector) {
+                    return document.querySelector(selector);
+                }
+
+                var currentIndex = 0;
+                var totalIndex = 3;
+                var timer;
+
+                // 切换图片和圆点操作
+                var render = function(index) {
+                    // 去除当前显示的图片和圆点
+                    $('.img-active').classList.remove('img-active');
+                    $('.spot-active').classList.remove('spot-active');
+
+                    // 切换图片和圆点
+                    $('.img-list').querySelectorAll('.img-item')[currentIndex].classList.toggle('img-active');
+                    $('.spot-list').querySelectorAll('.spot-item')[currentIndex].classList.toggle('spot-active');
+                }
+
+                var next = function() {
+                    currentIndex = (currentIndex + 1) % totalIndex;
+
+                    render();
+                }
+
+                var previous = function() {
+                    currentIndex = (currentIndex - 1) < 0 ? (totalIndex - 1) : (currentIndex - 1);
+
+                    render();
+                }
+
+                // 获取子元素在父元素中的下标
+                var indexOfParent = function(element) {
+                    var child_list = element.parentElement.children;
+
+                    for (var i = 0; i < child_list.length; i++) {
+                        var e = child_list[i];
+
+                        if (e === element) {
+                            return i;
+                        }
+                    }
+                }
+
+                var bindEvents = function() {
+                    // 左边箭头事件
+                    $('#previous').addEventListener('click', function() {
+                        previous();
+                    });
+
+                    // 右边箭头事件
+                    $('#next').addEventListener('click', function() {
+                        next();
+                    });
+
+                    // 鼠标移动至轮播图上
+                    $('.slider').addEventListener('mouseover', function() {
+                        $('#previous').classList.add('butn-active');
+                        $('#next').classList.add('butn-active');
+
+                        clearInterval(timer);
+                    });
+
+                    // 鼠标移动至轮播图外
+                    $('.slider').addEventListener('mouseout', function() {
+                        $('#previous').classList.remove('butn-active');
+                        $('#next').classList.remove('butn-active');
+
+                        timer = setInterval(next, 3000);
+                    });
+
+                    // 下方小圆点事件的监听
+                    $('.spot-list').addEventListener('click', function(event) {
+                        if (event.target.classList.contains('spot-item')) {
+                            var index = indexOfParent(event.target);
+                            currentIndex = index;
+                            render();
+                        }
+                    })
+                }
+
+                var __main = function() {
+                    // 添加事件监听
+                    bindEvents();
+
+                    // 启动定时轮播
+                    timer = setInterval(next, 3000);
+                }
+
+                __main();
+            })();
+        </script>
+    </body>
+</html>
