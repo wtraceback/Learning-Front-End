@@ -15,7 +15,7 @@
                     </div>
                     <!-- 输入框和添加按钮 -->
                     <div class="header-butn">
-                        <input type="text" id="id-todo-input" class="todo-input" placeholder="Add a to-do item"><!--
+                        <input type="text" id="id-todo-input" class="todo-input" placeholder="Add a to-do item" required="required"><!--
                         --><button type="button" name="button" class="todo-add">Add</button>
                     </div>
                 </div>
@@ -23,12 +23,18 @@
             <section class="section">
                 <div class="section-main">
                     <h2 class="todo-title">正在进行<span class="todo-num">0</span></h2>
+                    <div class="todolist">
+
+                    </div>
                     <h2 class="done-title">已经完成<span class="done-num">0</span></h2>
+                    <div class="donelist">
+
+                    </div>
+                </div>
+                <div class="footer">
+                    whxcer's ToDoList practice  <span class="clear">clear<span>
                 </div>
             </section>
-            <footer>
-
-            </footer>
         </div>
 
         <script src="./scripts/ToDoList.js"></script>
