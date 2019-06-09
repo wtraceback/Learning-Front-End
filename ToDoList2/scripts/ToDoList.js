@@ -3,69 +3,46 @@
         return document.querySelector(selector);
     }
 
-    // localStorage.todolist = '[{task: "task", time: "time", done: ture/false}]'
-    var todo_list = [];
-    var todo_num = 0;
-    var done_num = 0;
+    var handleInputValue = function() {
+        // 获得输入的数据
+        var todoInput = $('#id-todo-input');
+        var task = todoInput.value.trim();
 
-    var saveTodoList = function() {
-        var result = JSON.stringify(todo_list);
+        if (task == '') {
+            alert('内容不能为空');
+        } else {
+            // 生成 todo 对象
+            var todo = {
+                'task': task,
+                'time': stringOfCurrentTime(),
+                'done': false,
+            }
 
-        localStorage.todolist = result;
-    }
-
-    var loadTodoList = function() {
-        var str = localStorage.todolist;
-
-        var err = [undefined, null];
-        if (err.includes(str)) {
-            return [];
+            todo_list.push(todo);
+            saveTodos();
+            judgeTodo();
+            insertTodo(todo);
         }
 
-        return JSON.parse(str);
+        // 添加完成后清空输入框内的数据
+        $('#id-todo-input').value = '';
+        $('#id-todo-input').focus();
     }
 
-    var listItemTemplate = function(matter, time) {
-        var t = `<div class="todo-item">
-            <button class="done">Done</button>
-            <p class="todo-item-text">${matter}</p>
-            <button class="delete">Delete</button>
-        </div>`;
-
-        return t;
-    }
-
+    // 返回自己在父元素中的下标
     var indexOfElement = function(element) {
-        var item = element.parentElement;
-        var children_list = item.parentElement.children;
+        var parent = element.parentElement;
 
-        for (var i = 0; i < children_list.length; i++) {
-            if (item === children_list[i]) {
+        for (var i = 0; i < parent.children.length; i++) {
+            var e = parent.children[i];
+
+            if (e === element) {
                 return i;
             }
         }
     }
 
-    var deleteToDoItem = function(element) {
-        var index = indexOfElement(element);
-        todo_list.splice(index, 1);
-        saveTodoList();
-        element.parentElement.remove();
-    }
-
-    var insertToDoItem = function(value, time) {
-        var item = listItemTemplate(value, time);
-
-        $('.todolist').insertAdjacentHTML('beforeend', item);
-    }
-
-    var insertDoneItem = function(value, time) {
-        var item = listItemTemplate(value, time);
-
-        $('.donelist').insertAdjacentHTML('beforeend', item);
-    }
-
-    var stringOfDateTime = function() {
+    var stringOfCurrentTime = function() {
         var date = new Date();
 
         var y = date.getFullYear();
@@ -84,110 +61,216 @@
         return `${y}-${m}-${d} ${h}:${min}:${sec}`;
     }
 
-    var renderToDoItem = function() {
-        $('.todolist').innerHTML = '';
-        $('.donelist').innerHTML = '';
-        [todo_num, done_num] = [0, 0];
-        for (var i = 0; i < todo_list.length; i++) {
-            var temp = todo_list[i];
-            if (temp.done === true) {
-                insertDoneItem(temp.task, temp.time);
-                ++done_num;
-            } else {
-                insertToDoItem(temp.task, temp.time);
-                ++todo_num;
+    var templateTodo = function(todo) {
+        var t = `
+            <div class="todo-item${todo.done ? ' todo-done': ''}">
+                <button class="done">Done</button><!--
+                --><p class="todo-task" contenteditable="plaintext-only">${todo.task}</p><!--
+                --><button class="delete">Delete</button>
+            </div>
+        `;
+
+        return t;
+    }
+
+    var insertTodo = function(todo) {
+        // 添加到 container 中
+        var todoContainer = $('.todolist');
+        var t = templateTodo(todo);
+
+        todoContainer.insertAdjacentHTML('beforeend', t);
+    }
+
+    var judgeTodo = function() {
+        var nothing = 'todo-nothing';
+
+        if (todo_list.length == 0) {
+            $('.todolist').insertAdjacentHTML('beforebegin', `<h2 class=${nothing}>看到它如此的空荡荡，你不想添加点什么吗？</h2>`);
+            $('.todo-title').classList.add('todo-title-hide');
+        } else if($('.' + nothing)) {
+            $('.' + nothing).remove();
+            $('.todo-title').classList.remove('todo-title-hide');
+        }
+    }
+
+    var saveTodos = function() {
+        var s = JSON.stringify(todo_list);
+
+        localStorage.todolist = s;
+    }
+
+    // 判断是否为 json
+    var isJson = function(str) {
+        if (typeof str === 'string') {
+            try {
+                var j = JSON.parse(str);
+                if (typeof j === 'object' && j) {
+                    return true;
+                }
+            } catch (e) {
+                return false;
             }
         }
 
-        $('.todo-num').innerText = todo_num;
-        $('.done-num').innerText = done_num;
+        return false;
+    }
+
+    var loadTodos = function() {
+        var str = localStorage.todolist;
+
+        if (isJson(str)) {
+            return JSON.parse(str);
+        } else {
+            return [];
+        }
+
+    }
+
+    // 给 add button 绑定添加事件
+    var bindEventAdd = function() {
+        $('.todo-add').addEventListener('click', function(){
+            handleInputValue();
+        })
+    }
+
+    // 给 input 输入框按回车键时添加事件
+    var bindEventInputEnter = function() {
+        var todoInput = $('#id-todo-input');
+
+        todoInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                // 失去焦点
+                event.target.blur();
+                // 阻止默认行为的发生
+                event.preventDefault();
+
+                handleInputValue();
+            }
+        })
+    }
+
+    var bindEventTextEnter = function() {
+        var todoContainer = $('.todolist');
+
+        todoContainer.addEventListener('keydown', function(event){
+            var target = event.target;
+
+            // 编辑完了后点击了回车键
+            if(event.key === 'Enter') {
+                // 失去焦点
+                target.blur();
+                // 阻止默认行为的发生, 即不插入回车
+                event.preventDefault();
+
+                // 把元素在 todo_list 中更新
+                var index = indexOfElement(target.parentElement);
+                todo_list[index].task = target.innerHTML;
+
+                saveTodos();
+            }
+        })
+    }
+
+    var bindEventDoneAndDeleteButton = function() {
+        var todoContainer = $('.todolist');
+
+        todoContainer.addEventListener('click', function(event){
+            var self = event.target;
+            var parent = self.parentElement;
+
+            if(self.classList.contains('done')) {
+                var index = indexOfElement(parent);
+
+                parent.classList.toggle('todo-done');
+                if (parent.classList.contains('todo-done')) {
+                    todo_list[index].done = true;
+                } else {
+                    todo_list[index].done = false;
+                }
+
+                saveTodos();
+            } else if (self.classList.contains('delete')) {
+                var index = indexOfElement(parent);
+
+                // 把元素从 页面 以及 todo_list 中 remove 掉
+                parent.remove();
+                todo_list.splice(index, 1);
+
+                saveTodos();
+                judgeTodo();
+            }
+        })
+    }
+
+    var bindEventTextBlur = function() {
+        var todoContainer = $('.todolist');
+
+        // 编辑完了后点击了页面的其他地方，使其编辑处失去焦点
+        todoContainer.addEventListener('blur', function(event){
+            var target = event.target;
+
+            if (target.classList.contains('todo-task')) {
+                // 把元素在 todo_list 中更新
+                var index = indexOfElement(target.parentElement);
+                todo_list[index].task = target.innerHTML;
+
+                saveTodos();
+            }
+        }, true)
+    }
+
+    var bindEventClear = function() {
+        $('.clear').addEventListener('click', function() {
+            localStorage.removeItem('todolist');
+            todo_list = [];
+            $('.todolist').innerHTML = '';
+        });
+    }
+
+    var initTodos = function() {
+        todo_list = loadTodos();
+
+        $('.todolist').innerHTML = '';
+        for (var i = 0; i < todo_list.length; i++) {
+            var todo = todo_list[i];
+            insertTodo(todo);
+        }
+
+        // 检测当前的 todo 项是否为空
+        judgeTodo();
         $('#id-todo-input').value = '';
         $('#id-todo-input').focus();
     }
 
     var bindEvents = function() {
-        // 添加按钮的触发
-        $('.todo-add').addEventListener('click', function() {
-            var value = $('#id-todo-input').value.trim();
+        // 添加 todo
+        bindEventAdd();
 
-            if (value === '') {
-                alert('内容不能为空');
-                $('#id-todo-input').focus()
-            }
+        // todo input 按回车时保存
+        bindEventInputEnter();
 
-            for (var i = 0; i < todo_list.length; i++) {
-                if(value === todo_list[i].task) {
-                    alert('任务已存在！！');
-                    return;
-                }
-            }
+        // 任务栏的文本框输入 todo 按回车保存
+        bindEventTextEnter();
 
-            var temp = {
-                task: value,
-                time: stringOfDateTime(),
-                done: false,
-            }
+        // 完成按钮和删除按钮
+        bindEventDoneAndDeleteButton();
 
-            todo_list.push(temp);
-            renderToDoItem();
-            saveTodoList();
-        });
+        // 文本框失去焦点后保存 todo
+        bindEventTextBlur();
 
-        // todo 的事件委托
-        $('.todolist').addEventListener('click', function(event) {
-            // 删除按钮
-            if (event.target.classList.contains('delete')) {
-                --todo_num;
-                deleteToDoItem(event.target);
-                $('.todo-num').innerText = todo_num;
-            }
-
-            // 完成按钮
-            if (event.target.classList.contains('done')) {
-                var index = indexOfElement(event.target);
-                todo_list[index].done = true;
-                --todo_num;
-                ++done_num;
-                renderToDoItem();
-                saveTodoList();
-            }
-        })
-
-        // done 的事件委托
-        $('.donelist').addEventListener('click', function(event) {
-            // 删除按钮
-            if (event.target.classList.contains('delete')) {
-                deleteToDoItem(event.target);
-                --done_num;
-                $('.done-num').innerText = done_num;
-            }
-
-            // 完成按钮
-            if (event.target.classList.contains('done')) {
-                var index = indexOfElement(event.target);
-                todo_list[index].done = false;
-                --done_num;
-                ++todo_num;
-                renderToDoItem();
-                saveTodoList();
-            }
-        })
-
-        // clear 清除所有 todolist
-        $('.clear').addEventListener('click', function() {
-            localStorage.removeItem('todolist');
-            todo_list = [];
-            renderToDoItem();
-        });
+        // 清除所有 todolist
+        bindEventClear();
     }
 
     var __main = function() {
+        // 绑定事件
         bindEvents();
 
-        // 将缓存中的 todolist 加载出来
-        todo_list = loadTodoList();
-        renderToDoItem();
+        // 程序加载后, 加载 todo_list 并且添加到页面中
+        initTodos();
     }
 
+    // [{task: "task", time: "time", done: ture/false}]
+    var todo_list = [];
     __main();
 })();
