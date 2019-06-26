@@ -64,9 +64,10 @@
     var templateTodo = function(todo) {
         var t = `
             <div class="todo-item${todo.done ? ' todo-done': ''}">
-                <button class="done">Done</button><!--
+                <div class="done incomplete"></div><!--
                 --><p class="todo-task" contenteditable="plaintext-only">${todo.task}</p><!--
-                --><button class="delete">Delete</button>
+                --><button class="delete">delete</button><!--
+                --><div class="date">19-05-06 23:34:39<div>
             </div>
         `;
 
@@ -219,14 +220,6 @@
         }, true)
     }
 
-    var bindEventClear = function() {
-        $('.clear').addEventListener('click', function() {
-            localStorage.removeItem('todolist');
-            todo_list = [];
-            $('.todolist').innerHTML = '';
-        });
-    }
-
     var initTodos = function() {
         todo_list = loadTodos();
 
@@ -257,9 +250,6 @@
 
         // 文本框失去焦点后保存 todo
         bindEventTextBlur();
-
-        // 清除所有 todolist
-        bindEventClear();
     }
 
     var __main = function() {
