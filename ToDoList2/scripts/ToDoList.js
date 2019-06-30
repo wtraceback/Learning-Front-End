@@ -64,10 +64,10 @@
     var templateTodo = function(todo) {
         var t = `
             <div class="todo-item${todo.done ? ' todo-done': ''}">
-                <div class="done incomplete"></div><!--
+                <div class="done${todo.done ? ' complete': ''}"></div><!--
                 --><p class="todo-task" contenteditable="plaintext-only">${todo.task}</p><!--
                 --><button class="delete">delete</button><!--
-                --><div class="date">19-05-06 23:34:39<div>
+                --><div class="date">${todo.time}<div>
             </div>
         `;
 
@@ -98,6 +98,19 @@
         var s = JSON.stringify(todo_list);
 
         localStorage.todolist = s;
+    }
+
+    var rerenderList = function() {
+        $('.todolist').innerHTML = '';
+        for (var i = 0; i < todo_list.length; i++) {
+            var todo = todo_list[i];
+            insertTodo(todo);
+        }
+
+        // 检测当前的 todo 项是否为空
+        judgeTodo();
+        $('#id-todo-input').value = '';
+        $('#id-todo-input').focus();
     }
 
     // 判断是否为 json
@@ -182,14 +195,22 @@
             if(self.classList.contains('done')) {
                 var index = indexOfElement(parent);
 
+                // 修改 done 按钮的样式
+                self.classList.toggle('complete');
                 parent.classList.toggle('todo-done');
+
                 if (parent.classList.contains('todo-done')) {
                     todo_list[index].done = true;
+                    var item = todo_list.splice(index, 1);
+                    todo_list.push(item[0]);
                 } else {
                     todo_list[index].done = false;
+                    var item = todo_list.splice(index, 1);
+                    todo_list.unshift(item[0]);
                 }
 
                 saveTodos();
+                rerenderList();
             } else if (self.classList.contains('delete')) {
                 var index = indexOfElement(parent);
 
@@ -222,17 +243,7 @@
 
     var initTodos = function() {
         todo_list = loadTodos();
-
-        $('.todolist').innerHTML = '';
-        for (var i = 0; i < todo_list.length; i++) {
-            var todo = todo_list[i];
-            insertTodo(todo);
-        }
-
-        // 检测当前的 todo 项是否为空
-        judgeTodo();
-        $('#id-todo-input').value = '';
-        $('#id-todo-input').focus();
+        rerenderList();
     }
 
     var bindEvents = function() {

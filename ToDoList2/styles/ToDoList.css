@@ -59,11 +59,17 @@ header {
     width: 80%;
     padding: 0 3%;
     border: 2px solid #e0e6e8;
+    border-right: none;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
 
 .todo-input:active {
+    border-color: #aba3ff;
+    outline: 0;
+}
+
+.todo-input:focus {
     border-color: #aba3ff;
     outline: 0;
 }
@@ -97,7 +103,7 @@ header {
 
 .header-main,
 .section-main {
-    min-width: 500px;
+    min-width: 650px;
 }
 
 .todo-title,
@@ -129,9 +135,10 @@ header {
 }
 
 .done {
-    flex: 0 1 10%;
+    flex: 0 1 4%;
     height: 25px;
     cursor: pointer;
+    background: url("../images/todo.png") no-repeat center;
 }
 
 .delete {
@@ -142,6 +149,7 @@ header {
     border: none;
     color: #fff;
     background-color: #FF9B00;
+    cursor: pointer;
 }
 
 .todo-done {
@@ -156,7 +164,6 @@ header {
 }
 
 .incomplete {
-    background: url("../images/todo.png") no-repeat center;
 }
 
 .complete {
