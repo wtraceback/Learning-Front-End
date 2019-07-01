@@ -170,7 +170,7 @@
             var target = event.target;
 
             // 编辑完了后点击了回车键
-            if(event.key === 'Enter') {
+            if(event.key === 'Enter' && target.classList.contains('todo-task')) {
                 // 失去焦点
                 target.blur();
                 // 阻止默认行为的发生, 即不插入回车
@@ -201,6 +201,7 @@
 
                 if (parent.classList.contains('todo-done')) {
                     todo_list[index].done = true;
+                    todo_list[index].time = stringOfCurrentTime();
                     var item = todo_list.splice(index, 1);
                     todo_list.push(item[0]);
                 } else {
