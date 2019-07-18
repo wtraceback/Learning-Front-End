@@ -18,7 +18,7 @@
                 'done': false,
             }
 
-            todo_list.push(todo);
+            todo_list.unshift(todo);
             saveTodos();
             judgeTodo();
             insertTodo(todo);
@@ -79,7 +79,7 @@
         var todoContainer = $('.todolist');
         var t = templateTodo(todo);
 
-        todoContainer.insertAdjacentHTML('beforeend', t);
+        todoContainer.insertAdjacentHTML('afterbegin', t);
     }
 
     var judgeTodo = function() {
@@ -102,7 +102,7 @@
 
     var rerenderList = function() {
         $('.todolist').innerHTML = '';
-        for (var i = 0; i < todo_list.length; i++) {
+        for (var i = todo_list.length - 1; i >= 0; i--) {
             var todo = todo_list[i];
             insertTodo(todo);
         }
