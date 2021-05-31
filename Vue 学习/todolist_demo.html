@@ -2,20 +2,35 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>ToDoList</title>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
     <body>
-        <div id="app">
-            <h1>{{ message }}</h1>
+        <div id="todolist">
+            <div>
+                <input v-model="inputValue">
+                <button @click="handleSubmit">提交</button>
+            </div>
+            <ul>
+                <li v-for="(item, index) in list" :key="index">
+                    {{ item }}
+                </li>
+            </ul>
         </div>
 
         <script type="text/javascript">
             var vm = new Vue({
-                el: '#app',
+                el: '#todolist',
                 data: {
-                    message: 'Hello World'
-                }
+                    inputValue: '',
+                    list: [],
+                },
+                methods: {
+                    handleSubmit: function() {
+                        this.list.push(this.inputValue)
+                        this.inputValue = ''
+                    },
+                },
             })
         </script>
     </body>
