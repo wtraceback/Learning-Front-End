@@ -5,18 +5,25 @@
         <button @click="handleSubmit">提交</button>
       </div>
       <ul>
-        <li
+          <todo-item
             v-for="(item, index) in list"
             :key="index"
-        >
-            {{ item }}
-        </li>
+            :content="item"
+            :index="index"
+            @delete="handleDelete"
+          >
+          </todo-item>
       </ul>
   </div>
 </template>
 
 <script>
+import ToDoItem from './components/ToDoItem'
+
 export default {
+    components: {
+        'todo-item': ToDoItem,
+    },
     data: function() {
         return {
             inputValue: '',
@@ -28,7 +35,10 @@ export default {
             // this.$data.list == this.list
             this.list.push(this.inputValue)
             this.inputValue = ''
-        }
+        },
+        handleDelete: function(index) {
+            this.list.splice(index, 1)
+        },
     },
 }
 </script>
