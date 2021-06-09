@@ -1,5 +1,4 @@
 import React from 'react'
-import ToDoItem from './ToDoItem'
 
 class ToDoList extends React.Component {
     constructor(props) {
@@ -35,13 +34,13 @@ class ToDoList extends React.Component {
         return (
           <div>
               <div>
-                <input value={this.state.inputValue} onChange={this.handleInputChange.bind(this)} />
-                <button onClick={this.handleSubmit.bind(this)}>添加</button>
+                <input value={ this.state.inputValue } onChange={ this.handleInputChange.bind(this) } />
+                <button onClick={ this.handleSubmit.bind(this) }>添加</button>
               </div>
               <ul>
                 {
                     this.state.list.map((item, index) => {
-                        return <ToDoItem delete={this.handleDelete.bind(this)} key={index} content={item} index={index} />
+                        return <li key={ index } onClick={ this.handleDelete.bind(this, index) }>{ item }</li>
                     })
                 }
               </ul>
