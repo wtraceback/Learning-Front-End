@@ -8,6 +8,10 @@ class ToDoList extends React.Component {
             list: [],
             inputValue: '',
         }
+
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     handleSubmit() {
@@ -31,19 +35,30 @@ class ToDoList extends React.Component {
         })
     }
 
+    getToDoItems() {
+        return (
+            this.state.list.map((item, index) => {
+                return (
+                    <ToDoItem
+                        delete={this.handleDelete}
+                        key={index}
+                        content={item}
+                        index={index}
+                    />
+                )
+            })
+        )
+    }
+
     render() {
         return (
           <div>
               <div>
-                <input value={this.state.inputValue} onChange={this.handleInputChange.bind(this)} />
-                <button onClick={this.handleSubmit.bind(this)}>添加</button>
+                <input value={this.state.inputValue} onChange={this.handleInputChange} />
+                <button onClick={this.handleSubmit}>添加</button>
               </div>
               <ul>
-                {
-                    this.state.list.map((item, index) => {
-                        return <ToDoItem delete={this.handleDelete.bind(this)} key={index} content={item} index={index} />
-                    })
-                }
+                {this.getToDoItems()}
               </ul>
           </div>
         );
