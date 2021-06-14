@@ -1,12 +1,10 @@
 import React from 'react'
+import store from './store/index'
 
 class ToDoList extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            inputValue: '',
-            list: [],
-        }
+        this.state = store.getState()
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
