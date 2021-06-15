@@ -1,5 +1,10 @@
 import React from 'react'
 import store from './store/index'
+import {
+    CHANGE_INPUT_VALUE,
+    ADD_TODO_ITEM,
+    DELETE_TODO_ITEM,
+} from './store/actionTypes'
 
 class ToDoList extends React.Component {
     constructor(props) {
@@ -15,7 +20,7 @@ class ToDoList extends React.Component {
 
     handleSubmit() {
         const action = {
-            type: 'add_todo_item',
+            type: ADD_TODO_ITEM,
         }
 
         store.dispatch(action)
@@ -23,7 +28,7 @@ class ToDoList extends React.Component {
 
     handleInputChange(e) {
         const action = {
-            type: 'change_input_value',
+            type: CHANGE_INPUT_VALUE,
             value: e.target.value,
         }
 
@@ -31,11 +36,12 @@ class ToDoList extends React.Component {
     }
 
     handleDelete(index) {
-        const list = [...this.state.list]
-        list.splice(index, 1)
-        this.setState({
-            list: list,
-        })
+        const action = {
+            type: DELETE_TODO_ITEM,
+            index: index,
+        }
+
+        store.dispatch(action)
     }
 
     handleStoreChange() {
