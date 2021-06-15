@@ -8,21 +8,26 @@ class ToDoList extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleStoreChange = this.handleStoreChange.bind(this)
+
+        store.subscribe(this.handleStoreChange)
     }
 
     handleSubmit() {
-        const list = [...this.state.list]
-        list.push(this.state.inputValue)
-        this.setState({
-            list: list,
-            inputValue: '',
-        })
+        const action = {
+            type: 'add_todo_item',
+        }
+
+        store.dispatch(action)
     }
 
     handleInputChange(e) {
-        this.setState({
-          inputValue: e.target.value,
-        })
+        const action = {
+            type: 'change_input_value',
+            value: e.target.value,
+        }
+
+        store.dispatch(action);
     }
 
     handleDelete(index) {
@@ -31,6 +36,10 @@ class ToDoList extends React.Component {
         this.setState({
             list: list,
         })
+    }
+
+    handleStoreChange() {
+        this.setState(store.getState())
     }
 
     render() {
