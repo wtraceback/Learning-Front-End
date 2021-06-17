@@ -1,5 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { 
+  getInputChangeAction, 
+  getAddItemAction, 
+  getDeleteItemAction,
+} from './store/actionCreators'
 
 class App extends React.Component {
   render() {
@@ -33,25 +38,17 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputChange(e) {
-      const action = {
-        type: 'change_input_value',
-        value: e.target.value,
-      }
+      const action = getInputChangeAction(e.target.value)
       dispatch(action)
     },
     handleSubmit() {
-      const action = {
-        type: 'add_todo_item',
-      }
+      const action = getAddItemAction()
       dispatch(action)
     },
     handleDelete(index) {
-      const action = {
-        type: 'delete_todo_item',
-        index: index,
-      }
+      const action = getDeleteItemAction(index)
       dispatch(action)
-    }
+    },
   }
 }
 
