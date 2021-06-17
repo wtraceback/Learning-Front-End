@@ -13,7 +13,7 @@ class App extends React.Component {
           {
             this.props.list.map((item, index) => {
               return (
-                <li key={index} onClick={this.props.handleDelete}>{item}</li>
+                <li key={index} onClick={() => this.props.handleDelete(index)}>{item}</li>
               )
             })
           }
@@ -46,12 +46,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(action)
     },
     handleDelete(index) {
-      console.log(index);
-      // const action = {
-      //   type: 'delete_todo_item',
-      //   index: index,
-      // }
-      // dispatch(action)
+      const action = {
+        type: 'delete_todo_item',
+        index: index,
+      }
+      dispatch(action)
     }
   }
 }
