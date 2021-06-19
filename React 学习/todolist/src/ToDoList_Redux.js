@@ -1,10 +1,12 @@
 import React from 'react'
 import store from './store/index'
+
 import {
     getInputChangeAction,
     getAddItemAction,
     getDeleteItemAction,
 } from './store/actionCreators'
+import ToDoListUI from './ToDoList_Redux_UI'
 
 class ToDoList extends React.Component {
     constructor(props) {
@@ -13,9 +15,22 @@ class ToDoList extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
         this.handleStoreChange = this.handleStoreChange.bind(this)
 
         store.subscribe(this.handleStoreChange)
+    }
+
+    render() {
+        return (
+            <ToDoListUI 
+                inputValue={this.state.inputValue}
+                list={this.state.list}
+                handleSubmit={this.handleSubmit}
+                handleInputChange={this.handleInputChange}
+                handleDelete={this.handleDelete}
+            />
+        )
     }
 
     handleInputChange(e) {
@@ -35,26 +50,6 @@ class ToDoList extends React.Component {
 
     handleStoreChange() {
         this.setState(store.getState())
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <div>
-                    <input value={this.state.inputValue} onChange={this.handleInputChange} />
-                    <button onClick={this.handleSubmit}>提交</button>
-                </div>
-                <ul>
-                    {
-                        this.state.list.map((item, index) => {
-                            return (
-                                <li key={index} onClick={this.handleDelete.bind(this, index)}>{item}</li>
-                            )
-                        })
-                    }
-                </ul>
-            </React.Fragment>
-        )
     }
 }
 
