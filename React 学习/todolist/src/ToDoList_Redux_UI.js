@@ -12,7 +12,7 @@ class ToDoListUI extends React.Component {
                     {
                         this.props.list.map((item, index) => {
                             return (
-                                <li key={index} onClick={(index) => {this.props.handleDelete(index)}}>{item}</li>
+                                <li key={index} onClick={() => {this.props.handleDelete(index)}}>{item}</li>
                             )
                         })
                     }

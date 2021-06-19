@@ -1,10 +1,12 @@
 import React from 'react'
-import store from './store/index'
+import axios from 'axios'
 
+import store from './store/index'
 import {
     getInputChangeAction,
     getAddItemAction,
     getDeleteItemAction,
+    initTodoListAction,
 } from './store/actionCreators'
 import ToDoListUI from './ToDoList_Redux_UI'
 
@@ -50,6 +52,18 @@ class ToDoList extends React.Component {
 
     handleStoreChange() {
         this.setState(store.getState())
+    }
+
+    componentDidMount() {
+        axios.get('/api/todolist')
+            .then((res) => {
+                const action = initTodoListAction(res.data)
+                store.dispatch(action)
+            })
+            .catch((error) => {
+                console.log('数据请求失败');
+                console.log(error);
+            })
     }
 }
 
