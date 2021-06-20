@@ -1,12 +1,11 @@
 import React from 'react'
-import axios from 'axios'
 
 import store from './store/index'
 import {
     getInputChangeAction,
     getAddItemAction,
     getDeleteItemAction,
-    initTodoListAction,
+    getTodoList,
 } from './store/actionCreators'
 import ToDoListUI from './ToDoList_Redux_UI'
 
@@ -55,15 +54,19 @@ class ToDoList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('/api/todolist')
-            .then((res) => {
-                const action = initTodoListAction(res.data)
-                store.dispatch(action)
-            })
-            .catch((error) => {
-                console.log('数据请求失败');
-                console.log(error);
-            })
+        const action = getTodoList()
+        // 原本 store.dispatch 只接收 js 对象，也就是 action 只能为 js 对象
+        // 但是添加了 react-thunk 中间件之后，可以接收函数，然后会自动调用函数
+        store.dispatch(action)
+        // axios.get('/api/todolist')
+        //     .then((res) => {
+        //         const action = initTodoListAction(res.data)
+        //         store.dispatch(action)
+        //     })
+        //     .catch((error) => {
+        //         console.log('数据请求失败');
+        //         console.log(error);
+        //     })
     }
 }
 
