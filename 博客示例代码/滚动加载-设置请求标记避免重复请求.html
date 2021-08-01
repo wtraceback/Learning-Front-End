@@ -121,11 +121,10 @@
                 }
             }
 
+            // 标记，避免重复请求和加载信息
+            var page = 0
+            var is_requesting = false
             var changeScrollSlide = function() {
-                // 标记，避免重复请求和加载信息
-                var page = 0
-                var is_requesting = false
-
                 // 如果滚动到最顶端且没有请求正在申请中，则向后端发送请求，获取旧的消息
                 if ($('.content').scrollTop() === 0 && is_requesting === false) {
                     page++
