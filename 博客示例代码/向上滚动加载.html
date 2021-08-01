@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .header,
+        .footer {
+            height: 50px;
+            border: 1px solid rgba(34,36,38,.15);
+            box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
+        }
+
+        .content {
+            height: calc(100vh - 100px);
+            overflow-y: scroll;
+        }
+
+        .item {
+            width: 100px;
+            height: 50px;
+            margin: 10px;
+            border: 1px solid #cc0;
+        }
+
+        /* 自定义滚动条 */
+        .content::-webkit-scrollbar {/*滚动条整体样式*/
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+        }
+
+        .content::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            cursor: pointer;
+            border-radius: 5px;
+            background: rgba(0,0,0,.25);
+            -webkit-transition: color .2s ease;
+            transition: color .2s ease;
+        }
+
+        .content::-webkit-scrollbar-thumb:hover {
+            background: #949A9D;
+        }
+
+        .content::-webkit-scrollbar-track {/*滚动条里面轨道*/
+            background: rgba(0,0,0,.1);
+            border-radius: 0;
+        }
+
+        ::selection {
+            background-color: #cce2ff;
+            color: rgba(0,0,0,.87);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="header">header</div>
+        <div class="content">
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+            <div class="item">hello world</div>
+        </div>
+        <div class="footer">footer</div>
+    </div>
+
+    <script>
+        (function() {
+            var scrollToBottom = function() {
+                var el = document.querySelector('.content')
+                if (el != undefined) {
+                    // 获取滚动区域的高度
+                    var h = el.scrollHeight
+
+                    // 设置滚动条在最底下，这样看到的消息就是最新的
+                    el.scrollTop = h
+                }
+            }
+
+            var changeScrollSlide = function() {
+                var el = document.querySelector('.content')
+
+                // 如果滚动到最顶端，则向后端发送请求，获取旧的消息
+                if (el.scrollTop === 0) {
+                    console.log('向后端发送请求');
+                }
+            }
+
+            var __main = function() {
+                // 设置滚动条最开始的位置
+                scrollToBottom()
+
+                // 启动滚动监听，监听滚动条的滚动
+                window.addEventListener('scroll', changeScrollSlide, true)
+            }
+
+            __main()
+        })()
+    </script>
+</body>
+</html>
