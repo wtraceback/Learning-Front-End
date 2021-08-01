@@ -151,6 +151,11 @@
                 // 设置滚动条最开始的位置
                 scrollToBottom()
 
+                /*
+                    如果设置的是内滚动，然后设置了 body 的 css 为： body {overflow: hidden}，那么直接使用
+                    window.addEventListener('scroll', changeScrollSlide)，是无法监听到滚动事件的
+                    需要为 addEventListener 添加第三个参数，使用 捕获 的方式获取
+                */
                 // 启动滚动监听，监听滚动条的滚动
                 window.addEventListener('scroll', changeScrollSlide, true)
             }
