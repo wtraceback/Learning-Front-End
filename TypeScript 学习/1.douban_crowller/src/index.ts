@@ -3,6 +3,14 @@ import cherrio from 'cheerio'
 import fs from 'fs'
 import path from 'path'
 
+interface MovieDict {
+    name: string
+    score: string
+    quote: string
+    cover_url: string | undefined
+    ranking: string
+}
+
 class Movie {
     public name: string
     public score: string
@@ -18,13 +26,28 @@ class Movie {
         this.ranking = ''
     }
 
-    toString() {
-
+    toDict() {
+        return {
+            name: this.name,
+            score: this.score,
+            quote: this.quote,
+            cover_url: this.cover_url,
+            ranking: this.ranking,
+        }
     }
 }
 
 class Crowller {
-    save_page_data(data: Movie[]) {
+    generate_json_content(data: Movie[]) {
+        var r: MovieDict[] = []
+        data.map((item) => {
+            r.push(item.toDict())
+        })
+
+        return JSON.stringify(r)
+    }
+
+    save_page_data(data: string) {
         var filepath = path.resolve(__dirname, '../data/douban_top250.json')
         var file_content: Movie[] = []
         if (fs.existsSync(filepath)) {
@@ -32,11 +55,11 @@ class Crowller {
             console.log('file_content', file_content);
         }
 
-        file_content = file_content.concat(data)
+        file_content = file_content.concat(JSON.parse(data))
         fs.writeFileSync(filepath, JSON.stringify(file_content))
     }
 
-    movies_from_doc(page: string) {
+    movies_from_page(page: string) {
         var $ = cherrio.load(page)
         var items = $('.item')
         var movies: Movie[] = []
@@ -61,8 +84,9 @@ class Crowller {
     async main() {
         var url = 'https://movie.douban.com/top250'
         const page = await this.page_from_url(url)
-        const movies = this.movies_from_doc(page)
-        this.save_page_data(movies)
+        const movies = this.movies_from_page(page)
+        const movies_json = this.generate_json_content(movies)
+        this.save_page_data(movies_json)
     }
 
     constructor() {
