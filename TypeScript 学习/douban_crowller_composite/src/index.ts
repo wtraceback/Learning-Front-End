@@ -1,23 +1,24 @@
 import superagent from 'superagent'
 import fs from 'fs'
 import path from 'path'
-import Analyzer from './moviesAnalyzer'
+// import Analyzer from './moviesAnalyzer'
+import Analyzer from './singletonAnalyzer'
 
 export interface IAnalyzer {
     analyze: (html: string, filePath: string) => string
 }
 
 class Crowller {
-    save_page_data(data: string, filepath: string) {
+    private save_page_data(data: string, filepath: string) {
         fs.writeFileSync(filepath, data)
     }
 
-    async page_from_url(url: string) {
+    private async page_from_url(url: string) {
         const result = await superagent.get(url)
         return result.text
     }
 
-    async main() {
+    private async main() {
         var url = 'https://movie.douban.com/top250'
         var filepath = path.resolve(__dirname, '../data/douban_top250.json')
 
@@ -31,5 +32,6 @@ class Crowller {
     }
 }
 
-const analyzer = new Analyzer()
+// const analyzer = new Analyzer()
+const analyzer = Analyzer.getInstance()
 const crowller = new Crowller(analyzer)
