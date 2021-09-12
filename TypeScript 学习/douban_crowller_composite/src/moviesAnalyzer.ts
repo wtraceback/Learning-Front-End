@@ -1,5 +1,6 @@
 import cherrio from 'cheerio'
 import fs from 'fs'
+import { IAnalyzer } from './index'
 
 interface IMovieDict {
     name: string
@@ -35,7 +36,7 @@ class Movie {
     }
 }
 
-export default class Analyzer {
+export default class Analyzer implements IAnalyzer {
     private movies_from_page(page: string) {
         var $ = cherrio.load(page)
         var items = $('.item')
@@ -54,19 +55,18 @@ export default class Analyzer {
     }
 
     private generate_json_content(data: Movie[], filepath: string) {
-        var file_content: Movie[] = []
-
-        if (fs.existsSync(filepath)) {
-            file_content = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
-        }
-        file_content = file_content.concat(data)
-
         var r: IMovieDict[] = []
         data.map((item) => {
             r.push(item.toDict())
         })
 
-        return JSON.stringify(r)
+        var file_content: IMovieDict[] = []
+        if (fs.existsSync(filepath)) {
+            file_content = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
+        }
+        file_content = file_content.concat(r)
+
+        return JSON.stringify(file_content)
     }
 
     public analyze(page: string, filepath: string) {

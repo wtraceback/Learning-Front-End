@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import Analyzer from './moviesAnalyzer'
 
-interface IAnalyzer {
+export interface IAnalyzer {
     analyze: (html: string, filePath: string) => string
 }
 
