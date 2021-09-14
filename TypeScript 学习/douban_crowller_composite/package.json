@@ -4,13 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node ./src/index.ts"
+    "dev": "ts-node ./src/index.ts",
+    "build": "tsc",
+    "auto_build": "tsc -w",
+    "auto_run": "nodemon node ./build/index.js",
+    "con": "concurrently npm run auto_build & npm run auto_run"
+  },
+  "nodemon": {
+    "ignore": [
+      "data/*"
+    ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/superagent": "^4.1.12",
+    "concurrently": "^6.2.1",
+    "nodemon": "^2.0.12",
     "ts-node": "^10.2.1"
   },
   "dependencies": {
