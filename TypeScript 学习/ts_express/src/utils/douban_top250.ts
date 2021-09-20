@@ -18,7 +18,7 @@ export default class Crowller {
 
     private async main() {
         var url = 'https://movie.douban.com/top250'
-        var filepath = path.resolve(__dirname, '../data/douban_top250.json')
+        var filepath = path.resolve(__dirname, '../../data/douban_top250.json')
 
         const page = await this.page_from_url(url)
         const movies_json = this.analyzer.analyze(page, filepath)
