@@ -1,13 +1,12 @@
 import superagent from 'superagent'
 import fs from 'fs'
 import path from 'path'
-import Analyzer from './moviesAnalyzer'
 
 export interface IAnalyzer {
     analyze: (html: string, filePath: string) => string
 }
 
-class Crowller {
+export default class Crowller {
     private save_page_data(data: string, filepath: string) {
         fs.writeFileSync(filepath, data)
     }
@@ -30,6 +29,3 @@ class Crowller {
         this.main()
     }
 }
-
-const analyzer = new Analyzer()
-const crowller = new Crowller(analyzer)
