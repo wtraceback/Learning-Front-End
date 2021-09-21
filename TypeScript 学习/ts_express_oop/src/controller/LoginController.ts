@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import { Request, Response } from 'express'
-import { controller, get } from './decorator'
+import { controller, get, post } from './decorator'
+import { responseData } from '../utils/utils'
 
 // express 库的类型定义文件描述不准确 .d.ts，因此需要自定义
 interface BodyRequest extends Request {
@@ -59,5 +60,26 @@ class LoginController {
             </body>
             </html>
         `)
+    }
+
+    @post('/login')
+    login_post(req: BodyRequest, res: Response) {
+        const { username, password } = req.body
+        console.log('login post')
+        if (username === 'admin' && password === '123456'  && req.session) {
+            req.session.login = true
+            // res.redirect('/');
+            res.json(responseData(true, "登录成功"))
+        } else {
+            // res.send('用户名或密码错误')
+            res.json(responseData(false, "用户名或密码错误"))
+        }
+    }
+
+    @get('/logout')
+    logout(req: BodyRequest, res: Response) {
+        req.session = undefined
+        // res.redirect('/login');
+        res.json(responseData(true, "退出成功"))
     }
 }
