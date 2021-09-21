@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { Request, Response } from 'express'
-import { controller, get, post } from './decorator'
-import { responseData } from '../utils/utils'
+import { controller, get, post, use } from './decorator'
+import { responseData, login_required } from '../utils/utils'
 
 // express 库的类型定义文件描述不准确 .d.ts，因此需要自定义
 interface BodyRequest extends Request {
@@ -13,6 +13,7 @@ interface BodyRequest extends Request {
 @controller
 class LoginController {
     @get('/')
+    @use(login_required)
     home(req: BodyRequest, res: Response) {
         // 主页
         res.send(`

@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, RequestHandler } from 'express'
 
 export const router = Router()
 
@@ -15,25 +15,33 @@ export var controller = function(target: any) {
         const method: Method = Reflect.getMetadata('method', target.prototype, key)
         // 获取类方法，key 为方法名
         const fn = target.prototype[key]
+        const middleware = Reflect.getMetadata('middleware', target.prototype, key)
         if (path && method && fn) {
             // 将路由和方法绑定在一起
-            router[method](path, fn)
+            if (middleware) {
+                router[method](path, middleware, fn)
+            } else {
+                router[method](path, fn)
+            }
         }
     }
 }
 
-export var get = function(path: string) {
-    return (target: any, key: string) => {
-        // 在方法上定义元数据
-        Reflect.defineMetadata('path', path, target, key)
-        Reflect.defineMetadata('method', 'get', target, key)
+export var use = function(middleware: RequestHandler) {
+    return function(target: any, key: string) {
+        Reflect.defineMetadata('middleware', middleware, target, key)
     }
 }
 
-export var post = function(path: string) {
-    return (target: any, key: string) => {
-        // 在方法上定义元数据
-        Reflect.defineMetadata('path', path, target, key)
-        Reflect.defineMetadata('method', 'post', target, key)
+export var requestMethod = function(type: string) {
+    return function(path: string) {
+        return (target: any, key: string) => {
+            // 在方法上定义元数据
+            Reflect.defineMetadata('path', path, target, key)
+            Reflect.defineMetadata('method', type, target, key)
+        }
     }
 }
+
+export const get = requestMethod('get')
+export const post = requestMethod('post')
