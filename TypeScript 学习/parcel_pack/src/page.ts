@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 let a: string = 'hello world'
 console.log(a)
 
