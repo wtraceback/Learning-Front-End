@@ -1,0 +1,12 @@
+{
+  "name": "parcel_pack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "parcel ./src/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
