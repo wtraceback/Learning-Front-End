@@ -1,6 +1,5 @@
-import 'reflect-metadata'
 import { Request, Response } from 'express'
-import { controller, get, post, use } from './decorator'
+import { controller, get, post, use } from '../decorator'
 import { responseData, login_required } from '../utils/utils'
 
 // express 库的类型定义文件描述不准确 .d.ts，因此需要自定义
@@ -11,10 +10,10 @@ interface BodyRequest extends Request {
 }
 
 @controller
-class LoginController {
+export class LoginController {
     @get('/')
     @use(login_required)
-    home(req: BodyRequest, res: Response) {
+    home(req: BodyRequest, res: Response): void {
         // 主页
         res.send(`
             <!DOCTYPE html>
@@ -35,7 +34,7 @@ class LoginController {
     }
 
     @get('/login')
-    login(req: BodyRequest, res: Response) {
+    login(req: BodyRequest, res: Response): void {
         // 登录页
         res.send(`
             <!DOCTYPE html>
@@ -64,7 +63,7 @@ class LoginController {
     }
 
     @post('/login')
-    login_post(req: BodyRequest, res: Response) {
+    login_post(req: BodyRequest, res: Response): void {
         const { username, password } = req.body
         console.log('login post')
         if (username === 'admin' && password === '123456'  && req.session) {
@@ -78,7 +77,7 @@ class LoginController {
     }
 
     @get('/logout')
-    logout(req: BodyRequest, res: Response) {
+    logout(req: BodyRequest, res: Response): void {
         req.session = undefined
         // res.redirect('/login');
         res.json(responseData(true, "退出成功"))
