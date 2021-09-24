@@ -1,22 +1,16 @@
 import 'reflect-metadata'
-import { Request, Response, NextFunction } from 'express'
+import { Response } from 'express'
 import fs from 'fs'
 import path from 'path'
 
-import { controller, get, use } from './decorator'
+import { controller, get, use } from '../decorator'
 import { responseData, login_required } from '../utils/utils'
 import Crowller from '../utils/douban_top250'
 import Analyzer from '../utils/moviesAnalyzer'
-
-// express 库的类型定义文件描述不准确 .d.ts，因此需要自定义
-interface BodyRequest extends Request {
-    body: {
-        [key: string]: string | undefined
-    }
-}
+import { BodyRequest } from '../utils/type'
 
 @controller
-class CrowllerController {
+export class CrowllerController {
     @get('/getData')
     @use(login_required)
     getData(req: BodyRequest, res: Response) {

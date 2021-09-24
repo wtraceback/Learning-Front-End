@@ -3,6 +3,8 @@ import { CrowllerController, LoginController } from '../controller'
 
 export var use = function(middleware: RequestHandler) {
     return function(target: CrowllerController | LoginController, key: string) {
-        Reflect.defineMetadata('middleware', middleware, target, key)
+        var originMiddlewares = Reflect.getMetadata('middlewares', target, key) || []
+        originMiddlewares.push(middleware)
+        Reflect.defineMetadata('middleware', originMiddlewares, target, key)
     }
 }

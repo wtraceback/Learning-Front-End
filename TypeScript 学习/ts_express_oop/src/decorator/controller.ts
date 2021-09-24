@@ -10,11 +10,11 @@ export var controller = function(target: new (...args: any[]) => {}) {
         const method: Methods = Reflect.getMetadata('method', target.prototype, key)
         // 获取类方法，key 为方法名
         const handler = target.prototype[key]
-        const middleware: RequestHandler = Reflect.getMetadata('middleware', target.prototype, key)
+        const middlewares: RequestHandler[] = Reflect.getMetadata('middlewares', target.prototype, key)
         if (path && method) {
             // 将路由和方法绑定在一起
-            if (middleware) {
-                router[method](path, middleware, handler)
+            if (middlewares && middlewares.length) {
+                router[method](path, ...middlewares, handler)
             } else {
                 router[method](path, handler)
             }

@@ -1,13 +1,7 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { controller, get, post, use } from '../decorator'
 import { responseData, login_required } from '../utils/utils'
-
-// express 库的类型定义文件描述不准确 .d.ts，因此需要自定义
-interface BodyRequest extends Request {
-    body: {
-        [key: string]: string | undefined
-    }
-}
+import { BodyRequest } from '../utils/type'
 
 @controller
 export class LoginController {

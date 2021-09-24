@@ -2,8 +2,7 @@ import express from 'express'
 import cookieSession from 'cookie-session'
 import bodyParser from 'body-parser'
 import 'reflect-metadata'
-import './controller/LoginController'
-import './controller/CrowllerController'
+import './controller'
 import router from './router'
 
 const app = express()
