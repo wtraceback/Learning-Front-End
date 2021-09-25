@@ -1,11 +1,25 @@
-import { Response } from 'express'
-import { controller, get, post, use } from '../decorator'
-import { responseData, login_required } from '../utils/utils'
-import { BodyRequest } from '../utils/type'
+import { Response } from "express";
+import { controller, get, post, use } from "../decorator";
+import { responseData, login_required } from "../utils/utils";
+import { BodyRequest } from "../utils/type";
 
 @controller
 export class LoginController {
-    @get('/')
+    static isLogin(req: BodyRequest): boolean {
+        return !!(req.session ? req.session.login : false);
+    }
+
+    @get("/api/isLogin")
+    isLogin(req: BodyRequest, res: Response): void {
+        const isLogin = LoginController.isLogin(req);
+        if (isLogin) {
+            res.json(responseData(isLogin, "已经登录", isLogin));
+        } else {
+            res.json(responseData(isLogin, "未登录，请先登录", isLogin));
+        }
+    }
+
+    @get("/")
     @use(login_required)
     home(req: BodyRequest, res: Response): void {
         // 主页
@@ -24,10 +38,10 @@ export class LoginController {
                 <a href="/logout">退出登录</a>
             </body>
             </html>
-        `)
+        `);
     }
 
-    @get('/login')
+    @get("/login")
     login(req: BodyRequest, res: Response): void {
         // 登录页
         res.send(`
@@ -53,27 +67,27 @@ export class LoginController {
                 </form>
             </body>
             </html>
-        `)
+        `);
     }
 
-    @post('/login')
+    @post("/login")
     login_post(req: BodyRequest, res: Response): void {
-        const { username, password } = req.body
-        console.log('login post')
-        if (username === 'admin' && password === '123456'  && req.session) {
-            req.session.login = true
+        const { username, password } = req.body;
+        console.log("login post");
+        if (username === "admin" && password === "123456" && req.session) {
+            req.session.login = true;
             // res.redirect('/');
-            res.json(responseData(true, "登录成功"))
+            res.json(responseData(true, "登录成功"));
         } else {
             // res.send('用户名或密码错误')
-            res.json(responseData(false, "用户名或密码错误"))
+            res.json(responseData(false, "用户名或密码错误"));
         }
     }
 
-    @get('/logout')
+    @get("/logout")
     logout(req: BodyRequest, res: Response): void {
-        req.session = undefined
+        req.session = undefined;
         // res.redirect('/login');
-        res.json(responseData(true, "退出成功"))
+        res.json(responseData(true, "退出成功"));
     }
 }

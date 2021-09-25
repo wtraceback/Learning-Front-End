@@ -1,7 +1,7 @@
 import { Form, Input, Button } from "antd";
 import styles from "./index.module.css";
 
-const LoginPage = () => {
+const Login = () => {
     const onFinish = (values: any) => {
         console.log("Success:", values);
     };
@@ -54,4 +54,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default Login;
