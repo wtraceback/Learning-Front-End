@@ -17,7 +17,8 @@ export const responseData = (success: boolean, msg: string, data?: any): Result 
 
 // 鉴权中间件
 export const login_required = (req: Request, res: Response, next: NextFunction): void => {
-    const isLogin = req.session ? req.session.login : undefined
+    const isLogin = !!(req.session ? req.session.login : false)
+
     if (isLogin) {
         next()
     } else {

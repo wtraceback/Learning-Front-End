@@ -73,7 +73,6 @@ export class LoginController {
     @post("/login")
     login_post(req: BodyRequest, res: Response): void {
         const { username, password } = req.body;
-        console.log("login post");
         if (username === "admin" && password === "123456" && req.session) {
             req.session.login = true;
             // res.redirect('/');

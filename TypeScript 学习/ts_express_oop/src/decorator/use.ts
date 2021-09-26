@@ -5,6 +5,6 @@ export var use = function(middleware: RequestHandler) {
     return function(target: CrowllerController | LoginController, key: string) {
         var originMiddlewares = Reflect.getMetadata('middlewares', target, key) || []
         originMiddlewares.push(middleware)
-        Reflect.defineMetadata('middleware', originMiddlewares, target, key)
+        Reflect.defineMetadata('middlewares', originMiddlewares, target, key)
     }
 }
