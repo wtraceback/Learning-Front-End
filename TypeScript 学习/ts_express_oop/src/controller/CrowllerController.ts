@@ -9,7 +9,7 @@ import Crowller from '../utils/douban_top250'
 import Analyzer from '../utils/moviesAnalyzer'
 import { BodyRequest } from '../utils/type'
 
-@controller
+@controller('/')
 export class CrowllerController {
     @get('/getData')
     @use(login_required)
