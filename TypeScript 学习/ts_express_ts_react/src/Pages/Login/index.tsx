@@ -12,8 +12,7 @@ class Login extends Component {
 
     onFinish = (values: any) => {
         console.log("Success:", values);
-        // axios.post("/api/login", qs.stringify({
-        axios.post("/login", qs.stringify({
+        axios.post("/api/login", qs.stringify({
             username: values.username,
             password: values.password,
         }),
