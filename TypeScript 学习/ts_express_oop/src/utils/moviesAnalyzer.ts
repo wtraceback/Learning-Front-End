@@ -8,6 +8,7 @@ interface IMovieDict {
     quote: string
     cover_url: string | undefined
     ranking: string
+    evaluators_num: string
 }
 
 class Movie {
@@ -16,6 +17,7 @@ class Movie {
     public quote: string
     public cover_url: string | undefined
     public ranking: string
+    public evaluators_num: string
 
     constructor() {
         this.name = ''
@@ -23,6 +25,7 @@ class Movie {
         this.quote = ''
         this.cover_url = ''
         this.ranking = ''
+        this.evaluators_num = ''
     }
 
     toDict() {
@@ -32,6 +35,7 @@ class Movie {
             quote: this.quote,
             cover_url: this.cover_url,
             ranking: this.ranking,
+            evaluators_num: this.evaluators_num,
         }
     }
 }
@@ -48,6 +52,7 @@ export default class Analyzer implements IAnalyzer {
             m.quote = $(e).find('.inq').text()
             m.cover_url = $(e).find('img').attr('src')
             m.ranking = $(e).find('.pic').find('em').text()
+            m.evaluators_num = $(e).find('.star').find('span:last-child').text()
             movies.push(m)
         })
 
