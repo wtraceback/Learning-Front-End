@@ -1,11 +1,10 @@
 .main {
     width: 400px;
-    height: 200px;
+    height: 100px;
     padding: 20px 20px 0 20px;
-    border: 1px solid #ccc;
-    margin: 100px auto;
+    margin: 50px auto;
 }
 
-.main > a {
-    margin-right: 20px;
+.butn {
+    margin-right: 30px;
 }

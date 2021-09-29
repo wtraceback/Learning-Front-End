@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { Spin, message } from "antd";
+import { Redirect } from "react-router-dom";
+import { Spin, message, Button } from "antd";
 import ReactECharts from 'echarts-for-react';
 import styles from "./index.module.css";
 
@@ -14,25 +14,9 @@ enum IDataEnum {
     evaluators_num = 'evaluators_num',
 }
 
-interface IMovieItem {
-    name: string,
-    quote: string,
-    score: string,
-    ranking: string,
-    cover_url: string,
-    evaluators_num: string,
-}
-
-interface IState {
-    isLogin: boolean,
-    loading: boolean,
-    dimensions_arr: string[],
-    data: IMovieItem[],
-}
-
 class Home extends Component {
     public echarts: any
-    state: IState = {
+    state: DataType.IState = {
         isLogin: false,
         loading: true,
         dimensions_arr: [],
@@ -54,13 +38,12 @@ class Home extends Component {
         });
 
         axios.get("/api/showData").then((res) => {
-            console.log('showData res', res);
-
             if (res.data.success) {
+                // 维度 key 值
                 var dimensions_arr: string[] = [IDataEnum.name, IDataEnum.quote, IDataEnum.score, IDataEnum.ranking, IDataEnum.cover_url, IDataEnum.evaluators_num]
 
                 // 对数据进行处理
-                res.data.data.forEach((value: IMovieItem, index: number) => {
+                res.data.data.forEach((value: DataType.IMovieItem, index: number) => {
                     value[IDataEnum.name] = value[IDataEnum.name].split(' ')[0]
                     value[IDataEnum.evaluators_num] = parseInt(value[IDataEnum.evaluators_num]).toString()
                 })
@@ -76,6 +59,7 @@ class Home extends Component {
                 var auto_height = res.data.data.length * 60
                 this.echarts.getEchartsInstance().resize({ height: auto_height })
             } else {
+                message.error('请先获取数据')
             }
         });
     }
@@ -88,9 +72,20 @@ class Home extends Component {
                 return (
                     <>
                         <div className={styles.main}>
-                            <Link to="/Login" onClick={(e) => { e.preventDefault(); this.handleCrowllerData() }}>获取数据</Link>
-                            <Link to="/Login">展示数据</Link>
-                            <Link to="/Login" onClick={(e) => { e.preventDefault(); this.handleLogout() }}>退出</Link>
+                            <Button
+                                className={styles.butn}
+                                type="primary"
+                                onClick={ this.handleCrowllerData }
+                            >
+                                获取数据
+                            </Button>
+                            <Button
+                                className={styles.butn}
+                                type="primary"
+                                onClick={ this.handleLogout }
+                            >
+                                退出
+                            </Button>
                         </div>
                         <div>
                             <ReactECharts
@@ -122,7 +117,7 @@ class Home extends Component {
     handleCrowllerData() {
         axios.get('/api/getData').then((res) => {
             if (res.data.success) {
-                message.error('数据抓取成功，请刷新画面重新展示');
+                message.info('数据抓取成功，请刷新画面重新展示');
             } else {
                 message.error('数据抓取失败');
             }
@@ -137,10 +132,14 @@ class Home extends Component {
                 text: '豆瓣电影Top250'
             },
             tooltip: {
+                // 鼠标悬浮在柱状图上时，显示的信息
                 trigger: 'axis',
                 formatter: function (params: any) {
-                    // console.log(params);
-                    return `${params[0].name}<br>${params[0].value}人评价`
+                    return `
+                        ${params[0].data.name}<br>
+                        排名：第 ${params[0].data.ranking} 名<br>
+                        ${params[0].data.evaluators_num}人评价
+                    `
                 }
             },
             legend: {},
@@ -150,12 +149,25 @@ class Home extends Component {
                 inverse: true
             },
             dataset: {
+                // 提供一份数据
+                // dimensions 对应的key值，dimensions = ['name', 'quote', 'score', 'ranking', 'cover_url', 'evaluators_num']
+                /*
+                    source = [{
+                        "name": "肖申克的救赎",
+                        "score": "9.7",
+                        "quote": "希望让人自由。",
+                        "cover_url": "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p480747492.jpg",
+                        "ranking": "1",
+                        "evaluators_num": "2453766人评价"
+                    }]
+                    */
                 dimensions: this.state.dimensions_arr,
                 source: this.state.data
             },
             series: [
                 {
                     type: 'bar',
+                    // 柱状体的高度
                     barWidth: 30,
                     encode: {
                         // 将 "evaluators_num" 列映射到 X 轴。
@@ -164,6 +176,7 @@ class Home extends Component {
                         y: 'name'
                     },
                     label: {
+                        // 柱状体中是否显示相关信息
                         show: true,
                         // 引用特定维度的值
                         formatter: '第 {@ranking} 名'
@@ -177,10 +190,3 @@ class Home extends Component {
 }
 
 export default Home;
-
-
-// 自适应
-// https://www.jianshu.com/p/9fc7d6b50178
-// 数据集
-// https://www.runoob.com/echarts/echarts-dataset.html
-// https://blog.csdn.net/hwhsong/article/details/109319162
