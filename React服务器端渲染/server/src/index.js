@@ -1,9 +1,16 @@
-const express = require("express");
+import express from "express";
+import React from "react";
+import { renderToString } from "react-dom/server";
+import Home from "./containers/Home";
+
 const app = express();
-const Home = require("./containers/Home");
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.send(renderToString(<Home />));
+});
+
+app.get("/origin", (req, res) => {
+    res.send(`/origin Hello World`);
 });
 
 app.listen(3000, () => {
