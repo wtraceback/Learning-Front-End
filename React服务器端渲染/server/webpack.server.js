@@ -11,7 +11,7 @@ module.exports = {
     // 打包的模式 development 还是 production
     mode: "development",
     // 入口文件
-    entry: "./src/index.js",
+    entry: "./src/server/index.js",
     // 打包后的位置
     output: {
         filename: "bundle.js",
