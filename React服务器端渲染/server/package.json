@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./build/bundle.js",
-    "build": "webpack --config webpack.server.js"
+    "build": "webpack --config webpack.server.js",
+    "auto_start": "nodemon --watch build --exec node \"./build/bundle.js\"",
+    "auto_build": "webpack --config webpack.server.js --watch",
+    "auto": "npm-run-all --parallel auto_build auto_start"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +19,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "express": "^4.17.1",
+    "nodemon": "^2.0.13",
+    "npm-run-all": "^4.1.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "webpack": "^5.55.1",
