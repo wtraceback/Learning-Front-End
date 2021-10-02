@@ -8,10 +8,10 @@ const app = express();
 // 利用 Express 中的 express.static 内置中间件函数托管静态文件
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
     const content = renderToString(
         <StaticRouter location={req.path} context={{}}>
-            <Routes></Routes>
+            <Routes />
         </StaticRouter>
     );
 
@@ -25,10 +25,6 @@ app.get("/", (req, res) => {
             </body>
         </html>
     `);
-});
-
-app.get("/origin", (req, res) => {
-    res.send(`/origin Hello World`);
 });
 
 app.listen(3000, () => {
