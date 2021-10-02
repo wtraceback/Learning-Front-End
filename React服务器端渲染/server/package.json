@@ -7,8 +7,9 @@
     "start": "node ./build/bundle.js",
     "build": "webpack --config webpack.server.js",
     "auto_start": "nodemon --watch build --exec node \"./build/bundle.js\"",
-    "auto_build": "webpack --config webpack.server.js --watch",
-    "auto": "npm-run-all --parallel auto_build auto_start"
+    "auto_build_server": "webpack --config webpack.server.js --watch",
+    "auto_build_client": "webpack --config webpack.client.js --watch",
+    "auto": "npm-run-all --parallel auto_build_server auto_build_client auto_start"
   },
   "author": "",
   "license": "ISC",
