@@ -1,15 +1,28 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
-import { StaticRouter } from "react-router-dom";
+import { StaticRouter, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import Routes from "../Routes";
+import { matchRoutes } from 'react-router-config'
+import routes from "../Routes";
 import getStore from "../store";
 
 export const render_template = (req) => {
+    const store = getStore()
+
+    // 根据路由的路径，往 store 里面加数据
+    // 在服务器端渲染之前，把这个路由需要的数据提前加载好
+    const matchedRoutes = matchRoutes(routes, req.path)
+
     const content = renderToString(
-        <Provider store={getStore()}>
+        <Provider store={store}>
             <StaticRouter location={req.path} context={{}}>
-                <Routes />
+                {/* <Routes /> */}
+                {/* <Route path="/" exact component={Home}></Route> */}
+                {
+                    routes.map((route) => {
+                        return <Route {...route} />
+                    })
+                }
             </StaticRouter>
         </Provider>
     );
