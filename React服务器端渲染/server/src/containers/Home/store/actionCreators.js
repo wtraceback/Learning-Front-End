@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes'
 
 export const initData = () => {
     return (dispatch) => {
-        axios.get("http://localhost:5000/ssr/api/books")
+        return axios.get("http://localhost:5000/ssr/api/books")
             .then((res) => {
                 console.log('res', res);
                 dispatch(initDataAction(res.data))

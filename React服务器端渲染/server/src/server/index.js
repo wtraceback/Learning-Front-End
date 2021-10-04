@@ -6,7 +6,7 @@ const app = express();
 app.use(express.static("public"));
 
 app.get("*", (req, res) => {
-    res.send(render_template(req));
+    render_template(req, res)
 });
 
 app.listen(3000, () => {
