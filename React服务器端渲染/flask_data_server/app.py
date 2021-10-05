@@ -1,7 +1,9 @@
 from flask import Flask, jsonify
 from flask_cors import cross_origin
+from utils import responseData
 
 app = Flask(__name__)
+
 
 @app.route("/ssr/api/books", methods=["GET"])
 @cross_origin()
@@ -21,4 +23,14 @@ def getData():
         }
     ]
 
-    return jsonify(books)
+    return jsonify(responseData(True, "", books))
+
+
+@app.route("/ssr/api/isLogin", methods=["GET"])
+@cross_origin()
+def getLoginStatus():
+    login = {
+        "login": True,
+    }
+
+    return jsonify(responseData(True, "", login))
