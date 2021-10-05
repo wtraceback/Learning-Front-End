@@ -32,7 +32,9 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.initData();
+        if (this.props.data.length === 0) {
+            this.props.initData();
+        }
     }
 }
 

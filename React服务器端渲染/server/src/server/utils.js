@@ -4,7 +4,7 @@ import { StaticRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { matchRoutes } from 'react-router-config'
 import routes from "../Routes";
-import getStore from "../store";
+import { getStore } from "../store";
 
 export const render_template = (req, res) => {
     const store = getStore()
@@ -48,6 +48,11 @@ export const render_template = (req, res) => {
                 <head></head>
                 <body>
                     <div id="root">${content}</div>
+                    <script>
+                        window.context = {
+                            state: ${JSON.stringify(store.getState())}
+                        }
+                    </script>
                     <script src="index.js"></script>
                 </body>
             </html>
