@@ -5,7 +5,6 @@ export const initData = () => {
     return (dispatch) => {
         return axios.get("http://localhost:5000/ssr/api/books")
             .then((res) => {
-                console.log('res', res);
                 dispatch(initDataAction(res.data))
             })
             .catch((error) => {
