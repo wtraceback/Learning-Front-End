@@ -1,12 +1,20 @@
 import express from "express";
 import { render_template } from "./utils";
 import { matchRoutes } from 'react-router-config'
+import proxy from 'express-http-proxy'
 import { getStore } from "../store";
 import routes from "../Routes";
 
 const app = express();
 // 利用 Express 中的 express.static 内置中间件函数托管静态文件
 app.use(express.static("public"));
+
+// /api 请求路径的都需要进行代理转发
+app.use('/api', proxy('http://localhost:5000', {
+    proxyReqPathResolver: function (req) {
+        return '/ssr/api' + req.url
+    }
+}));
 
 app.get("*", (req, res) => {
     const store = getStore()

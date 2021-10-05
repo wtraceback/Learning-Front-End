@@ -40,7 +40,7 @@ class Home extends Component {
 
 Home.loadData = (store) => {
     // 这个函数负责在服务器端渲染之前，把这个路由需要的数据提前加载好
-    return store.dispatch(actionCreators.initData())
+    return store.dispatch(actionCreators.initData(true))
 }
 
 const mapStateToProps = (state) => {
@@ -53,7 +53,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         initData() {
-            dispatch(actionCreators.initData());
+            dispatch(actionCreators.initData(false));
         },
     };
 };
