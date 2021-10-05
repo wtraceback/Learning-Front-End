@@ -1,16 +1,12 @@
-import axios from "axios";
+import { instance as clientAxios } from '../../../client/request'
+import { instance as serverAxios } from '../../../server/request'
 import * as actionTypes from './actionTypes'
 
 export const initData = (server) => {
-    let url = ''
-    if (server) {
-        url = 'http://localhost:5000/ssr/api/books'
-    } else {
-        url = '/api/books'
-    }
+    let request = server ? serverAxios : clientAxios
 
     return (dispatch) => {
-        return axios.get(url)
+        return request.get('/api/books')
             .then((res) => {
                 dispatch(initDataAction(res.data))
             })
