@@ -4,6 +4,10 @@ from utils import responseData
 
 app = Flask(__name__)
 
+login_status = {
+    "login": True,
+}
+
 
 @app.route("/ssr/api/books", methods=["GET"])
 @cross_origin()
@@ -28,9 +32,21 @@ def getData():
 
 @app.route("/ssr/api/isLogin", methods=["GET"])
 @cross_origin()
-def getLoginStatus():
-    login = {
-        "login": True,
-    }
+def isLogin():
+    return jsonify(responseData(True, "", login_status))
 
-    return jsonify(responseData(True, "", login))
+
+@app.route("/ssr/api/login", methods=["GET"])
+@cross_origin()
+def Login():
+    login_status["login"] = True
+
+    return jsonify(responseData(True, "", login_status))
+
+
+@app.route("/ssr/api/logout", methods=["GET"])
+@cross_origin()
+def Logout():
+    login_status["login"] = False
+
+    return jsonify(responseData(True, "", login_status))
