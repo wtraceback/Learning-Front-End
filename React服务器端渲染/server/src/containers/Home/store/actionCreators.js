@@ -4,7 +4,9 @@ export const initData = () => {
     return (dispatch, getState, axiosInstance) => {
         return axiosInstance.get('/api/books')
             .then((res) => {
-                dispatch(initDataAction(res.data))
+                if (res.data.success) {
+                    dispatch(initDataAction(res.data.data))
+                }
             })
             .catch((error) => {
                 console.log(error)

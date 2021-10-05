@@ -24,13 +24,16 @@ app.get("*", (req, res) => {
     // 使用 react-router-config 来配置文件集中式管理路由
     // 使得访问路径 req.path 对应着 routes 中需要加载的组件
     const matchedRoutes = matchRoutes(routes, req.path)
+    console.log(matchedRoutes)
 
     // 让 matchRoutes 里面所有的组件，对应的 loadData 方法执行一次
     var promises = []
     matchedRoutes.forEach((item) => {
         if (item.route.loadData) {
             // item.route.loadData(store) 执行后，返回的是一个 Promise 对象
-            promises.push(item.route.loadData(store))
+            item.route.loadData.forEach((fn) => {
+                promises.push(fn(store))
+            })
         }
     })
 

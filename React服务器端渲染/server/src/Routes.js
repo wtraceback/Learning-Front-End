@@ -1,5 +1,6 @@
 import Home from "./containers/Home";
 import Login from "./containers/Login";
+import Header from "./components/Header";
 
 // const Routes = () => {
 //     return (
@@ -16,13 +17,14 @@ const routes = [
         path: '/',
         component: Home,
         exact: true,
-        loadData: Home.loadData,
+        loadData: [Header.loadData, Home.loadData],
         key: 'home',
     },
     {
         path: '/login',
         component: Login,
         exact: true,
+        loadData: [Header.loadData],
         key: 'login',
     },
 ]
