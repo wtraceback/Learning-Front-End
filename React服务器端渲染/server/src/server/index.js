@@ -39,7 +39,15 @@ app.get("*", (req, res) => {
 
     // 等待 promises 数组里面的所有 Promise 执行成功之后，再往下执行
     Promise.all(promises).then(() => {
-        res.send(render_template(store, req))
+        const context = {}
+        const html = render_template(store, req, context)
+
+        if (context.NOT_FOUND) {
+            res.status(404)
+            res.send(html)
+        } else {
+            res.send(html)
+        }
     })
 });
 
