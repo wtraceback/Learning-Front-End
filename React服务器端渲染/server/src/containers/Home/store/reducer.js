@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes'
 
 const defaultState = {
-    name: "hello world2",
     data: [],
 };
 

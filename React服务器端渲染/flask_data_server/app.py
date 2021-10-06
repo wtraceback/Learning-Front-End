@@ -67,4 +67,4 @@ def translation():
     if login_status["login"]:
         return jsonify(responseData(True, "", books))
     else:
-        return jsonify(responseData(False, "", {}))
+        return jsonify(responseData(False, "", []))

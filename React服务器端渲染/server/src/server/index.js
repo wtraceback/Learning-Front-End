@@ -32,7 +32,10 @@ app.get("*", (req, res) => {
         if (item.route.loadData) {
             // item.route.loadData(store) 执行后，返回的是一个 Promise 对象
             item.route.loadData.forEach((fn) => {
-                promises.push(fn(store))
+                const promise = new Promise((resolve, reject) => {
+                    fn(store).then(resolve).catch(resolve)
+                })
+                promises.push(promise)
             })
         }
     })
