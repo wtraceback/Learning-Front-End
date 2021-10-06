@@ -6,7 +6,7 @@ export const getHeaderInfo = () => {
             .then((res) => {
                 console.log(res.data);
                 if (res.data.success === true) {
-                    dispatch(getHeaderInfoAction(res.data.data.login))
+                    dispatch(changeLoginStatus(res.data.data.login))
                 }
             })
             .catch((error) => {
@@ -15,7 +15,29 @@ export const getHeaderInfo = () => {
     }
 }
 
-const getHeaderInfoAction = (login) => ({
-    type: actionTypes.INIT_HEADER_INFO,
+const changeLoginStatus = (login) => ({
+    type: actionTypes.CHANGE_LOGIN_STATUS,
     login: login,
 })
+
+export const handleLogin = () => {
+    return (dispatch, getState, axiosInstance) => {
+        axiosInstance.get('/api/login')
+            .then((res) => {
+                if (res.data.success) {
+                    dispatch(changeLoginStatus(true))
+                }
+            })
+    }
+}
+
+export const handleLogout = () => {
+    return (dispatch, getState, axiosInstance) => {
+        axiosInstance.get('/api/logout')
+            .then((res) => {
+                if (res.data.success) {
+                    dispatch(changeLoginStatus(false))
+                }
+            })
+    }
+}

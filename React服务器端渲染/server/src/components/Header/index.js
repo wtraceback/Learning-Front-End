@@ -14,10 +14,14 @@ class Header extends Component {
                         <Fragment>
                             <Link to="/translate">翻译列表</Link>
                             <br />
-                            <Link to="/logout">Logout</Link>
+                            <Link to="/logout" onClick={(e) => {e.preventDefault(); this.props.handleLogout() }}>
+                                Logout
+                            </Link>
                         </Fragment>
                     ) : (
-                        <Link to="/login">Login</Link>
+                        <Link to="/login" onClick={(e) => {e.preventDefault(); this.props.handleLogin() }}>
+                            Login
+                        </Link>
                     )
                 }
             </div>
@@ -37,7 +41,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        handleLogin() {
+            dispatch(actionCreators.handleLogin())
+        },
+        handleLogout() {
+            dispatch(actionCreators.handleLogout())
+        },
     };
 };
 

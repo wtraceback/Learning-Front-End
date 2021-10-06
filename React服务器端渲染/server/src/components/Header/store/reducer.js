@@ -6,7 +6,7 @@ const defaultState = {
 
 const reducer = (state=defaultState, action) => {
     switch(action.type) {
-        case actionTypes.INIT_HEADER_INFO:
+        case actionTypes.CHANGE_LOGIN_STATUS:
             const newState = {
                 ...state,
                 login: action.login

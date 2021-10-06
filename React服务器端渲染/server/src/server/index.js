@@ -17,7 +17,7 @@ app.use('/api', proxy('http://localhost:5000', {
 }));
 
 app.get("*", (req, res) => {
-    const store = getStore()
+    const store = getStore(req)
 
     // 根据路由的路径，往 store 里面加数据
     // 在服务器端渲染之前，把这个路由需要的数据提前加载好
