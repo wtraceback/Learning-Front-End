@@ -42,7 +42,9 @@ app.get("*", (req, res) => {
         const context = {}
         const html = render_template(store, req, context)
 
-        if (context.NOT_FOUND) {
+        if (context.action === 'REPLACE') {
+            res.redirect(302, context.url)
+        } else if (context.NOT_FOUND) {
             res.status(404)
             res.send(html)
         } else {
