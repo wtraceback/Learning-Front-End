@@ -1,11 +1,13 @@
 import * as actionTypes from './actionTypes'
 
-export const initData = () => {
+export const initBookData = () => {
     return (dispatch, getState, axiosInstance) => {
-        return axiosInstance.get('/api/book_title')
+        return axiosInstance.get('/api/book_info')
             .then((res) => {
                 if (res.data.success) {
-                    dispatch(initDataAction(res.data.data))
+                    dispatch(initBookDataAction(res.data.data))
+                } else {
+                    dispatch(initBookDataAction([]))
                 }
             })
             .catch((error) => {
@@ -14,7 +16,7 @@ export const initData = () => {
     };
 };
 
-const initDataAction = (data) => ({
-    type: actionTypes.INIT_DATA_ACTION,
+const initBookDataAction = (data) => ({
+    type: actionTypes.INIT_BOOK_DATA,
     data: data
 })

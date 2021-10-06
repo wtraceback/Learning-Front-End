@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
+import { Redirect } from 'react-router'
 import Header from "../../components/Header";
 import { actionCreators } from "./store";
 
-class Home extends Component {
+class Book extends Component {
     render() {
-        if (this.props.login === false) {
+        if (this.props.login) {
             return (
                 <div>
                     <Header />
-                    <div>home page</div>
+                    <div>book Page</div>
                     {
-                        this.props.data.map((item) => {
+                        this.props.book_data.map((item) => {
                             return (
                                 <div key={item.id}>
                                     <span>{item.title}</span>&nbsp;
@@ -25,35 +25,34 @@ class Home extends Component {
                 </div>
             );
         } else {
-            return <Redirect to="/book" />
+            return <Redirect to="/" />
         }
     }
 
     componentDidMount() {
-        if (this.props.data.length === 0) {
-            this.props.initData();
+        if (this.props.book_data.length === 0) {
+            this.props.initBookData();
         }
     }
-}
+};
 
-Home.loadData = (store) => {
-    // 这个函数负责在服务器端渲染之前，把这个路由需要的数据提前加载好
-    return store.dispatch(actionCreators.initData())
+Book.loadData = (store) => {
+    return store.dispatch(actionCreators.initBookData())
 }
 
 const mapStateToProps = (state) => {
     return {
-        data: state.home.data,
+        book_data: state.book.book_data,
         login: state.header.login,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        initData() {
-            dispatch(actionCreators.initData());
+        initBookData() {
+            dispatch(actionCreators.initBookData());
         },
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Book);

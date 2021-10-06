@@ -1,6 +1,6 @@
-import Home from "./containers/Home";
-import Login from "./containers/Login";
 import Header from "./components/Header";
+import Home from "./containers/Home";
+import Book from "./containers/Book";
 
 // const Routes = () => {
 //     return (
@@ -21,11 +21,11 @@ const routes = [
         key: 'home',
     },
     {
-        path: '/login',
-        component: Login,
+        path: '/book',
+        component: Book,
         exact: true,
-        loadData: [Header.loadData],
-        key: 'login',
+        loadData: [Header.loadData, Book.loadData],
+        key: 'book',
     },
 ]
 

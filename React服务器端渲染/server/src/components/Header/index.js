@@ -12,7 +12,7 @@ class Header extends Component {
                 {
                     this.props.login ? (
                         <Fragment>
-                            <Link to="/translate">翻译列表</Link>
+                            <Link to="/book">书籍信息</Link>
                             <br />
                             <Link to="/logout" onClick={(e) => {e.preventDefault(); this.props.handleLogout() }}>
                                 Logout
