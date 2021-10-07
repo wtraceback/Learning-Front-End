@@ -1,3 +1,23 @@
 .main {
-    background-color: #0f0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.item {
+    margin: 2px 5px;
+    color: #000;
+    text-decoration: none;
+}
+
+.item_butn {
+    margin: 2px 5px;
+    border: none;
+    font-size: 16px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.item:hover,
+.item_butn:hover {
+    color: #ccc;
 }

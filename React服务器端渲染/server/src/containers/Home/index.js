@@ -10,7 +10,9 @@ class Home extends Component {
         return (
             <div className={styles.main}>
                 <Header />
-                <div>home page</div>
+                <div className={styles.h2}>
+                    home page
+                </div>
                 {
                     this.props.data.map((item) => {
                         return (
