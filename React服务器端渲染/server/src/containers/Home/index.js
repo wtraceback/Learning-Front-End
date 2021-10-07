@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import { Helmet } from 'react-helmet'
 import Header from "../../components/Header";
 import { actionCreators } from "./store";
 import styles from './index.module.css'
@@ -8,23 +9,29 @@ import withStyle from "../../withStyle";
 class Home extends Component {
     render() {
         return (
-            <div className={styles.main}>
-                <Header />
-                <div className={styles.h2}>
-                    home page
+            <Fragment>
+                <Helmet>
+                    <title>书店主页 - 丰富的图书</title>
+                    <meta name="description" content="书店主页 - 丰富的图书" />
+                </Helmet>
+                <div className={styles.main}>
+                    <Header />
+                    <div className={styles.h2}>
+                        home page
+                    </div>
+                    {
+                        this.props.data.map((item) => {
+                            return (
+                                <div key={item.id}>
+                                    <span>{item.title}</span>&nbsp;
+                                    <span>{item.author}</span>&nbsp;
+                                    <span>{item.price}</span>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-                {
-                    this.props.data.map((item) => {
-                        return (
-                            <div key={item.id}>
-                                <span>{item.title}</span>&nbsp;
-                                <span>{item.author}</span>&nbsp;
-                                <span>{item.price}</span>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            </Fragment>
         );
     }
 

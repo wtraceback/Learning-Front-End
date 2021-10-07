@@ -2,6 +2,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
+import { Helmet } from 'react-helmet'
 import routes from "../Routes";
 
 export const render_template = (store, req, context) => {
@@ -21,12 +22,15 @@ export const render_template = (store, req, context) => {
         </Provider>
     );
 
+    const helmet = Helmet.renderStatic();
     const cssStr = context.css.length !== 0 ? context.css.join('\n') : ''
 
     return `
         <!DOCTYPE>
         <html>
             <head>
+                ${helmet.title.toString()}
+                ${helmet.meta.toString()}
                 <style>${cssStr}</style>
             </head>
             <body>

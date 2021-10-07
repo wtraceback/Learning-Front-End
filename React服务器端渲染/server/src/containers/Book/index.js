@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Redirect } from 'react-router'
+import { Helmet } from 'react-helmet'
 import Header from "../../components/Header";
 import { actionCreators } from "./store";
 import withStyle from "../../withStyle";
@@ -10,21 +11,27 @@ class Book extends Component {
     render() {
         if (this.props.login) {
             return (
-                <div className={styles.main}>
-                    <Header />
-                    <div className={styles.h2}>book Page</div>
-                    {
-                        this.props.book_data.map((item) => {
-                            return (
-                                <div key={item.id}>
-                                    <span>{item.title}</span>&nbsp;
-                                    <span>{item.author}</span>&nbsp;
-                                    <span>{item.price}</span>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                <Fragment>
+                    <Helmet>
+                        <title>书籍展示页 - 丰富的图书</title>
+                        <meta name="description" content="书籍展示页 - 丰富的图书" />
+                    </Helmet>
+                    <div className={styles.main}>
+                        <Header />
+                        <div className={styles.h2}>book Page</div>
+                        {
+                            this.props.book_data.map((item) => {
+                                return (
+                                    <div key={item.id}>
+                                        <span>{item.title}</span>&nbsp;
+                                        <span>{item.author}</span>&nbsp;
+                                        <span>{item.price}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </Fragment>
             );
         } else {
             return <Redirect to="/" />
