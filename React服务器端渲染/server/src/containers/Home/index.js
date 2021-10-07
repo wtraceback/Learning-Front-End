@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import Header from "../../components/Header";
 import { actionCreators } from "./store";
+import styles from './index.module.css'
 
 class Home extends Component {
     render() {
         if (this.props.login === false) {
             return (
-                <div>
+                <div className={styles.main}>
                     <Header />
                     <div>home page</div>
                     {

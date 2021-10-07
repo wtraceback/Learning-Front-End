@@ -38,7 +38,20 @@ module.exports = {
                         ],
                     ],
                 },
-            },
+            }, {
+                test: /\.css?$/,
+                use: ['style-loader', {
+                    loader: 'css-loader',
+                    options: {
+                        importLoaders: 1,
+                        // 开启 CSS Modules
+                        modules: {
+                            // 自定义生成的类名
+                            localIdentName: '[name]_[local]_[hash:base64:5]',
+                        }
+                    }
+                }]
+            }
         ],
     },
 };
