@@ -1,38 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
 import Header from "../../components/Header";
 import { actionCreators } from "./store";
 import styles from './index.module.css'
+import withStyle from "../../withStyle";
 
 class Home extends Component {
     render() {
-        // 服务器端渲染时，给 context 赋值
-        if (this.props.staticContext !== undefined) {
-            this.props.staticContext.css.push(styles._getCss())
-        }
-
-        if (this.props.login === false) {
-            return (
-                <div className={styles.main}>
-                    <Header />
-                    <div>home page</div>
-                    {
-                        this.props.data.map((item) => {
-                            return (
-                                <div key={item.id}>
-                                    <span>{item.title}</span>&nbsp;
-                                    <span>{item.author}</span>&nbsp;
-                                    <span>{item.price}</span>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            );
-        } else {
-            return <Redirect to="/book" />
-        }
+        return (
+            <div className={styles.main}>
+                <Header />
+                <div>home page</div>
+                {
+                    this.props.data.map((item) => {
+                        return (
+                            <div key={item.id}>
+                                <span>{item.title}</span>&nbsp;
+                                <span>{item.author}</span>&nbsp;
+                                <span>{item.price}</span>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        );
     }
 
     componentDidMount() {
@@ -40,11 +31,6 @@ class Home extends Component {
             this.props.initData();
         }
     }
-}
-
-Home.loadData = (store) => {
-    // 这个函数负责在服务器端渲染之前，把这个路由需要的数据提前加载好
-    return store.dispatch(actionCreators.initData())
 }
 
 const mapStateToProps = (state) => {
@@ -62,4 +48,11 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+const ExportHome = connect(mapStateToProps, mapDispatchToProps)(withStyle(Home, styles));
+
+ExportHome.loadData = (store) => {
+    // 这个函数负责在服务器端渲染之前，把这个路由需要的数据提前加载好
+    return store.dispatch(actionCreators.initData())
+}
+
+export default ExportHome

@@ -36,10 +36,6 @@ class Book extends Component {
     }
 };
 
-Book.loadData = (store) => {
-    return store.dispatch(actionCreators.initBookData())
-}
-
 const mapStateToProps = (state) => {
     return {
         book_data: state.book.book_data,
@@ -55,4 +51,10 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Book);
+const ExportBook = connect(mapStateToProps, mapDispatchToProps)(Book);
+
+ExportBook.loadData = (store) => {
+    return store.dispatch(actionCreators.initBookData())
+}
+
+export default ExportBook

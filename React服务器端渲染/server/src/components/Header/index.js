@@ -3,14 +3,10 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
 import styles from './index.module.css'
+import withStyle from "../../withStyle";
 
 class Header extends Component {
     render() {
-        // 服务器端渲染时，给 context 赋值
-        if (this.props.staticContext !== undefined) {
-            this.props.staticContext.css.push(styles._getCss())
-        }
-
         return (
             <div className={styles.main}>
                 <Link to="/">Home</Link>
@@ -35,10 +31,6 @@ class Header extends Component {
     }
 };
 
-Header.loadData = (store) => {
-    return store.dispatch(actionCreators.getHeaderInfo())
-}
-
 const mapStateToProps = (state) => {
     return {
         login: state.header.login,
@@ -56,4 +48,10 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+const ExportHeader = connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyle(Header, styles)));
+
+ExportHeader.loadData = (store) => {
+    return store.dispatch(actionCreators.getHeaderInfo())
+}
+
+export default ExportHeader
