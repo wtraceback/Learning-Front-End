@@ -21,7 +21,7 @@ export const render_template = (store, req, context) => {
         </Provider>
     );
 
-    const cssStr = context.css ? context.css : ''
+    const cssStr = context.css.length !== 0 ? context.css.join('\n') : ''
 
     return `
         <!DOCTYPE>

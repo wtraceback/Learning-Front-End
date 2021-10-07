@@ -1,12 +1,18 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
+import styles from './index.module.css'
 
 class Header extends Component {
     render() {
+        // 服务器端渲染时，给 context 赋值
+        if (this.props.staticContext !== undefined) {
+            this.props.staticContext.css.push(styles._getCss())
+        }
+
         return (
-            <div>
+            <div className={styles.main}>
                 <Link to="/">Home</Link>
                 <br />
                 {
@@ -50,4 +56,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

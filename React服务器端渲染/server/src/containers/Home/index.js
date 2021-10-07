@@ -9,7 +9,7 @@ class Home extends Component {
     render() {
         // 服务器端渲染时，给 context 赋值
         if (this.props.staticContext !== undefined) {
-            this.props.staticContext.css = styles._getCss()
+            this.props.staticContext.css.push(styles._getCss())
         }
 
         if (this.props.login === false) {
