@@ -21,10 +21,14 @@ export const render_template = (store, req, context) => {
         </Provider>
     );
 
+    const cssStr = context.css ? context.css : ''
+
     return `
         <!DOCTYPE>
         <html>
-            <head></head>
+            <head>
+                <style>${cssStr}</style>
+            </head>
             <body>
                 <div id="root">${content}</div>
                 <script>
